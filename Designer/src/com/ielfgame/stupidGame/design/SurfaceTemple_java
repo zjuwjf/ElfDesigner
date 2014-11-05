@@ -1,0 +1,34 @@
+package com.ielfgame.stupidGame.design.hotSwap;
+
+public class SurfaceTemple extends Surface{ 
+	
+	public SurfaceTemple() { 
+		super("XML-PATH"); 
+	} 
+		
+	@Override
+	public void onStart() { 
+		initNodesActions();
+	} 
+
+	@Override
+	public void onFinished() {
+	}
+	
+	@Override
+	public void onResume() {
+	} 
+
+	@Override
+	public void onPause() { 
+	} 
+	
+	final void initNodesActions() {
+		// @@auto-code-start  initialize
+		// @@auto-code-end
+	}
+	
+	// @@auto-code-start defines
+	// @@auto-code-end
+	
+} 

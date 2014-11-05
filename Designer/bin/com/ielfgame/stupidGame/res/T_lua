@@ -1,0 +1,7 @@
+
+
+ElfResMap:clear();
+<template name="fieldsInit">
+<![CDATA[ElfResMap:put("<RES_ID>", "<RES_PLIST_ID>");
+]]>
+</template>

@@ -1,0 +1,9 @@
+
+function getRes<XML_NAME>() 
+	local _res = {}
+	<template name="fields">
+	<![CDATA[	_res[<KEY>] = "<RES_ID>" <COMMENT>
+	]]>
+	</template>
+	return _res
+end

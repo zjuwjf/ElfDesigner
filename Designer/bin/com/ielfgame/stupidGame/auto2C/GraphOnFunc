@@ -1,0 +1,19 @@
+	//skill_zh  auto 
+	static float onskill_enLast(FightManager * manager, Hero * attacker, Hero * picks [])
+	{ 
+		return 0;
+	} 
+	static void onskill_enTrigger(FightManager * manager, Hero * attacker, Hero * picks [] )
+	{ 
+		
+	} 
+	static float onskill_enEachLast(FightManager * manager, Hero * attacker, Hero * picks [], Hero * pick)
+	{ 
+		return 0;
+	} 
+	static void onskill_enEachTrigger(FightManager * manager, Hero * attacker, Hero * picks [], Hero * pick)
+	{ 
+		
+	} 
+	
+	

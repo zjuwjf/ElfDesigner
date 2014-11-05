@@ -1,0 +1,33 @@
+// skill_zh  auto 
+class skill_en : public Skill 
+{ 
+public: 
+	skill_en() 
+	{ 
+		//logic 9 
+		mOnIsToAttack = NULL; 											//do by basic skill
+		mOnPickSkill = NULL; 											//do by basic skill
+		mOnCalcPickObjects = new OnCalcPickObjects(Front); 				//do by self
+		mOnCalcHit = NULL; 												//do by basic skill
+		mOnCalcHurt = NULL; 											//do by basic skill
+		mOnCalcBeHurt = NULL; 											//do by basic skill
+		mOnCalcReboundHurt = NULL; 										//do by basic skill
+		mOnCastBuff = NULL; 											//do by basic skill
+		mOnBeCastBuff = NULL; 											//do by basic skill
+		
+		//graph 8 
+		mGraphOnPassAttack = NULL; 										//do by basic skill
+		mGraphOnAttackMoveIn = new GraphOnAttackMoveIn(Move_At_Front); 	//do by self 
+		mGraphOnAttackStart = new GraphOnAttackStart(WuLiShiFa); 		//do by self 
+		mGraphOnAttack = new GraphOnAttack(); 							//do by self 
+		mGraphOnAttackEach = new GraphOnAttackEach(); 					//do by self 
+		mGraphOnBeMiss = NULL; 											//do by basic skill
+		mGraphOnAttackEnd = NULL; 										//do by basic skill
+		mGraphOnAttackMoveOut = NULL; 									//do by basic skill
+	} 
+	virtual ~skill_en() 
+	{ 
+		
+	} 
+}; 
+

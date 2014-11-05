@@ -1,0 +1,14 @@
+
+#ifndef _ELF_MAKE_RESOURCE_T_H
+#define _ELF_MAKE_RESOURCE_T_H
+
+class T
+{
+public:
+	<template name="fields">
+	<![CDATA[	const char * <SIMPLE_RES_ID> = "<RES_ID>" <COMMENT>;
+	]]>
+	</template>
+};
+
+#endif

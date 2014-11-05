@@ -1,0 +1,23 @@
+
+1. Animate is a node.
+2. pause or run 
+3. setCurrentFrame(index)
+4. get...set...
+5. listen(newIndex just begin) //after setFrame
+6. updateRate ? 
+7. view all frames ?
+8. setResids...
+9. global frame time 
+10. show on second glView ? 
+
+
+
+// #frame0. #frame1 
+// #refresh 
+
+// AnimateFrameNode extends ElfNode 
+// frameTime 
+
+//
+
+

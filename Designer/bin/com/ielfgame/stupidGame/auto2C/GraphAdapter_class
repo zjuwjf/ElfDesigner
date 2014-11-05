@@ -1,0 +1,26 @@
+class NameAdapter : public IName, public GraphOn
+{
+public:
+	GraphOnPassAttackAdapter(Object * object = NULL, Func func = NULL)
+	{
+		mTarget = object;
+		mFunc = func;
+	}
+	virtual float doIt(float delay, Parameters) 
+	{
+		if(mTarget != NULL && mFunc != NULL) 
+		{ 
+			copyParams(Inputs);
+			manager->runWithDelay(this, func_selector(NameAdapter::trigger), delay);
+			return getReturnValue();
+		} 
+		return 0;
+	} 
+	virtual void trigger()
+	{
+		mTarget->(*mFunc)(Members);
+	} 
+protected:
+	Func mFunc; 
+	Object * mTarget;
+} ; 

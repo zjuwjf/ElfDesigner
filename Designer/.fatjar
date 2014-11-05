@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Oct 29 14:27:09 CST 2014
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=false
+onejar.checkbox=true
+jarname=D\:\\MainDesigner\\MainDesigner-mac64-v0.jar
+manifest.mergeall=false
+manifest.mainclass=com.ielfgame.stupidGame.MainDesigner
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=

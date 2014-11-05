@@ -1,0 +1,10 @@
+#ifndef _Up_Name_H_
+#define _Up_Name_H_
+
+class Name 
+{
+public : 
+	
+};
+
+#endif

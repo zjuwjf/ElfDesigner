@@ -1,0 +1,20 @@
+class NameAdapter : public IName
+{
+public:
+	NameAdapter(Object*object=NULL, Func func = NULL)
+	{
+		mTarget = object;
+		mFunc = func;
+	}
+	virtual Type doIt(Parameters) 
+	{
+		if(mTarget != NULL && mFunc != NULL) 
+		{ 
+			mTarget->(*mFunc)(Inputs);
+		} 
+	} 
+protected:
+	Func mFunc; 
+	Object * mTarget;
+} ; 
+

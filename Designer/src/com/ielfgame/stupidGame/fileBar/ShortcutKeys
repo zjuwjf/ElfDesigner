@@ -1,0 +1,66 @@
+Node Tree :
+	F2 :    Rename Node 
+	F3 :    Copy Node 
+	F4 :    Copy Node Deep 
+	F5 :    Refresh Node
+	F6 :    Refresh Node Deep
+	
+	Del :   Remove Node To Recycle
+	Ctrl(Cmd) + Del : Delete Node
+
+	Ctrl(Cmd) + N :    New Node
+	Ctrl(Cmd) + F :    Search Node
+	Ctrl(Cmd) + P :    Search Plist
+	Ctrl(Cmd) + E :    Expand Node
+	Ctrl(Cmd) + T :    Texture Pack Node
+	Ctrl(Cmd) + H :    For Help
+	
+	Support DND Between Nodes
+	
+
+Main View :
+	F7 :    Show/Hide Grid Lines
+	F8 :    Show/Hide Fps
+	
+	Del :   Remove Node To Recycle
+	Ctrl(Cmd) + Del: Delete Node
+
+	Ctrl(Cmd) + F :    Search Node
+	Ctrl(Cmd) + P :    Search Plist
+	Ctrl(Cmd) + E :    Expand Node
+	Ctrl(Cmd) + T :    Texture Pack Node
+	Ctrl(Cmd) + H :    For Help
+	
+	Ctrl(Cmd) + R :    Reset Main View's Position And Scale
+	Ctrl(Cmd) + N :    Move Main View 
+	Ctrl(Cmd) + Z :    Undo
+	Ctrl(Cmd) + Y :    Redo
+	Ctrl(Cmd) + MouseWheel : Scale Main View
+	
+	↑,←,→,↓ :   Move Node
+	Ctrl(Cmd) + ↑,←,→,↓ :    Move Node Quick
+	
+	Support Drop Files(folder,*.xml,*.cocos,*.plist,*.png,*.jpg...) To Main View
+	
+	Right Double Click :    Select Node
+	Left Double Click :    Show/Hide Node Controls(Scale, Rotate, Anchor, Alpha)
+	Left Move :    Move Selected Nodes If Nodes CouldMove property Are True
+	Shift + Scale Control :    Scale Both X And Y With Same Value
+	
+	
+Node(Global) Property View :
+	Ctrl(Cmd) + C :    Copy Item Value If Supported
+	Ctrl(Cmd) + V :    Paste Item Value If Supported
+	Ctrl(Cmd) + Z :    Undo
+	Ctrl(Cmd) + Y :    Redo
+	
+	Select A Item Then
+	Ctrl(Cmd) + ↑,←,→,↓ : Set Item's Interval 
+	← Or → : Sub Or Add Item's Interval To Item's Value Or Item's Value->x
+	↓ Or ↑ : Sub Or Add Item's Interval To Item's Value->y
+	Shift + ↑,←,→,↓ : Sub Or Add Item's Interval To Item's Value Or Both Item's Value->x, ->y
+	
+	Support Drop Files(folder,*.plist,*.png,*.jpg...) To Some Items
+	
+Motion Edit View :
+   First Bind Motion Node 

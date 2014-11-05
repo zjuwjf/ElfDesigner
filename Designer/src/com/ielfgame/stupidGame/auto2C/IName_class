@@ -1,0 +1,6 @@
+class IName : public Object
+{
+public:
+	virtual Type doIt(Parameters) = 0;
+} ; 
+

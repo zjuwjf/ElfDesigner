@@ -1,0 +1,48 @@
+local config = require "Config"
+
+<XML_NAME> = class(BasicScene)
+
+function <XML_NAME>:createDocument()
+	self._factory:setZipFilePath(config.COCOS_ZIP_DIR.."<XML_NAME>.cocos.zip")
+	return self._factory:createDocument("<XML_NAME>.cocos")
+end
+
+--@@@@[[[[  created at <XML_DATE>
+function <XML_NAME>:assignmentXML()
+	local set = self._set
+<template name="fields">
+<![CDATA[	self._<FULL_NAME> = set:get<TYPE>("<FULL_NAME>")
+]]>
+</template>
+<template name="tables">
+<![CDATA[	self._tab_<RELATIVE_NAME> = {}
+	_tab_<RELATIVE_NAME>.RootNode = set:get<TYPE>("<FULL_NAME>")
+	_tab_<RELATIVE_NAME>.<FULL_NAME_M> = set:get<TYPE>("<FULL_NAME>")
+]]>
+</template>
+end
+--@@@@]]]]
+
+--------------------------------functions--------------------------------
+function <XML_NAME>:onInit()
+
+end
+
+function <XML_NAME>:onStart(pData)
+
+end
+
+function <XML_NAME>:onStop(pData)
+
+end
+
+function <XML_NAME>:onResume(pData)
+
+end
+
+function <XML_NAME>:onPause(pData)
+	
+end
+
+
+

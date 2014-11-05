@@ -1,0 +1,402 @@
+GloCoreInfo = {
+[1] = {
+corename = "英勇孢子",
+corepic = "core1.png",
+coreintro="刚可可树的果实.这种果实食用之后可以赋予使用者非常强大的攻击力.但是需要仔细辨识,不然会错当成未成熟的刚可可树的孢子错过.\n使用该果实可以获得技能《英勇打击》",
+coretype = 1, -- 1: nuqi 2:fashu 3:beidong
+skillname="英勇打击",
+skillpic = "skill1.png",
+skillintro=function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,施法需要#2怒气",xishu[1].damage*100,xishu[1].nuneed)
+end},
+[2] = {
+corename="断风者之眼",
+corepic = "core2.png",
+coreintro="拒木的种子.这种低矮的灌木的种子一个个晶莹无比,远看像是一枚枚鲛人的眼球(著名的风系神卫断风者就是一位鲛人)\n使用该果实可以获得技能《断空打击》",
+coretype = 1,
+skillname="断空打击",
+skillpic = "skill2.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,降低目标命中#2点#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[3] = {
+corename = "托林神木之种",
+corepic = "core3.png",
+coreintro="这东西可是很难寻找的!为什么？这些种子都会隐形...\n使用该果实可以获得技能《塔里托林之击》",
+coretype = 1,
+skillname="塔里托林之击",
+skillpic = "skill3.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,增加自身#2%速度#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[4] = {
+corename = "安喆思沃", 
+corepic = "core4.png",
+coreintro="安喆思沃的果实.挺拔的安喆树就像卫士一样矗立在大地之上...\n使用该果实可以获得技能《天使之剑》",
+coretype = 1,
+skillname="天使之剑",
+skillpic = "skill4.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,削弱目标#2%物理护甲#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[5] = {
+corename = "艳绯", 
+corepic = "core5.png",
+coreintro="色泽鲜艳的土库伦藤的藤尖上结出的细小果实.\n使用该果实可以获得技能《烈焰猛击》",
+coretype = 1,
+skillname="烈焰猛击",
+skillpic = "skill5.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,灼伤目标#2回合,施法需要#3怒气",xishu[1].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[6] = {
+corename = "音转", 
+corepic = "core6.png",
+coreintro="形状像克伦豆一样的暗色果实.食用之后会让人浑身颤抖.(激动的...?)\n使用该果实可以获得技能《百裂拳》",
+coretype = 1,
+skillname="百裂拳",
+skillpic = "skill6.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,造成#2%物理攻击力的伤害,施法需要#3怒气",xishu[1].attacknum,xishu[1].damage*100,xishu[1].nuneed)
+end},
+[7] = {
+corename = "黑火须", 
+corepic = "core7.png",
+coreintro="赛克库尼卡很容易找到的一种爬地植物.它的果实更像是一簇簇胡须,会飘的那种...\n使用该果实可以获得技能《暴力碎击》",
+coretype = 1,
+skillname="暴力碎击",
+skillpic = "skill7.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,增加自身#2%暴击概率#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[8] = {
+corename = "达达尼尔之血", 
+corepic = "core8.png",
+coreintro="土黄色的外皮包裹下是褐红色的果实,这是被称为达达尼尔之血的斯科林树的果实.\n使用该果实可以获得技能《裂地者之怒》",
+coretype = 1,
+skillname="裂地者怒击",
+skillpic = "skill8.png",
+skillintro = function(xishu)
+ return formatsql("对一横排目标造成#1%物理攻击力的伤害,增加自身#2%物理攻击力#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[9] = {
+corename = "玄武力果", 
+corepic = "core9.png",
+coreintro="罡科伦木的种子.使用食用之后让人觉得力量无穷.\n使用该果实可以获得技能《玄武残暴》",
+coretype = 1,
+skillname="玄武残暴",
+skillpic = "skill9.png",
+skillintro = function(xishu)
+ return formatsql("对一纵排目标造成#1%物理攻击力的伤害,增加自身#2%物理攻击力#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[2].last,xishu[1].nuneed)
+end},
+[10] = {
+corename = "罡", 
+corepic = "core10.png",
+coreintro="扎库鲁族人崇拜的守护神木——止沙昆的果实.外壳坚硬的像是钢铁,真不知道要怎么食用它...\n使用该果实可以获得技能《金刚不坏》",
+coretype = 1,
+skillname="金刚不坏",
+skillpic = "skill10.png",
+skillintro = function(xishu)
+ return formatsql("自身免疫所有伤害,持续#1回合,施法需要#2怒气",xishu[1].last,xishu[1].nuneed)
+end},
+[11] = {
+corename = "卑鄙之魂",
+corepic = "core11.png",
+coreintro="瓦塔莱的汁液凝聚成的果实,散发着浓郁的阴霾气息,可可拉依人用这种草的叶子炼制毒药.\n使用该果实可以获得技能《灵魂淘汰》",
+coretype = 1,
+skillname="灵魂淘汰",
+skillpic = "skill11.png",
+skillintro = function(xishu)
+ return formatsql("当对方有英雄血量比高于自己时,与对方血量比最高的英雄交换血量比,施法需要#1怒气",xishu[1].nuneed)
+end},
+[12] = {--need check
+corename = "莉法妮之泪", 
+corepic = "core12.png",
+coreintro="莉法妮藤的果实,像泪滴一样饱满剔透,闻起来有似有若无的香气...\n使用该果实可以获得技能《法术窃取》",
+coretype = 2,
+skillname="法术窃取",
+skillpic = "skill12.png",
+skillintro = function(xishu)
+ return formatsql("偷取一个对方英雄的技能,持续#1回合",xishu[1].last)
+end},
+[13] = {
+corename = "思嘉蒂之泪", 
+corepic = "core13.png",
+coreintro="思嘉蒂灵木的果实,像泪滴一样晶莹剔透,让人看到会感到哀伤...\n使用该果实可以获得技能《霜冻斩》",
+coretype = 1,
+skillname="霜冻斩",
+skillpic = "skill13.png",
+skillintro = function(xishu)
+ return formatsql("对一横排目标造成#1%物理攻击力的伤害,#2%几率冰冻目标#3回合,施法需要#4怒气",xishu[1].damage*100,xishu[2].hit,xishu[2].last,xishu[1].nuneed)
+end},
+[14] = {
+corename = "德库拉之种", 
+corepic = "core14.png",
+coreintro="德库拉神木是唯一可以同时结出两种灵魂能力物质的灵木...德库拉之种随时都散发着血腥的气息...\n使用该果实可以获得技能《血腥偿还》",
+coretype = 1,
+skillname="血腥偿还",
+skillpic = "skill14.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,按造成伤害的#2%回复自身血量,施法需要#4怒气",xishu[1].damage*100,xishu[2].damage*100,xishu[1].nuneed)
+end},
+[15] = {
+corename = "雷刚之种", 
+corepic = "core15.png",
+coreintro="雷刚神木的种子.小巧的种子每颗都散发着淡淡的灵魂之力...\n使用该果实可以获得技能《狂猛攻击》",
+coretype = 1,
+skillname="狂猛攻击",
+skillpic = "skill15.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害并附加#2*力量的伤害,施法需要#3怒气",xishu[1].damage*100,xishu[2].damage,xishu[1].nuneed)
+end},
+[16] = {
+corename = "星旋", 
+corepic = "core16.png",
+coreintro="巴卡哈尔树的果实.每颗成熟的巴卡哈尔果实都会泛出淡淡的星芒,矮人们称它为星旋.\n使用该果实可以获得技能《秘法飞弹》",
+coretype = 2,
+skillname="秘法飞弹",
+skillpic = "skill16.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害",xishu[1].damage*100)
+end},
+[17] = {
+corename = "暗绯", 
+corepic = "core17.png",
+coreintro="色泽暗淡的土库伦藤的根部散落的暗红色种子...\n使用该果实可以获得技能《黑焰》",
+coretype = 2,
+skillname="黑焰",
+skillpic = "skill17.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,#2%几率灼伤目标#3回合",xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[18] = {
+corename = "埃兰之种", 
+corepic = "core18.png",
+coreintro="埃兰神木的树种.拿在手中你可以感受到温暖无比...\n使用该果实可以获得技能《灼烧》",
+coretype = 2,
+skillname="灼烧",
+skillpic = "skill18.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,#2%几率重度灼伤目标#3回合",xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[19] = {
+corename = "柯尔的果实", 
+corepic = "core19.png",
+coreintro="空之灵柯尔的灵魂所化的神木上结出的果实,轻柔无比的果实几乎没有重量.\n使用该果实可以获得技能《致盲秘能》",
+coretype = 2,
+skillname="致盲密能",
+skillpic = "skill19.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,#2%几率降低目标命中加成#3回合",xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[20] = {
+corename = "光耀之种", 
+corepic = "core20.png",
+coreintro="凝结于空气中的气团,散发着闪电的气息!无根无茎,无始无终.\n使用该果实可以获得技能《闪电链》",
+coretype = 2,
+skillname="闪电链",
+skillpic = "skill20.png",
+skillintro = function(xishu)
+ return formatsql("产生一道闪电链,初始产生#1%法术攻击力的伤害,跳跃两次,伤害10%递减",xishu[1].damage*100)
+end},
+[21] = {
+corename = "崩雷", 
+corepic = "core21.png",
+coreintro="凝结于空气中的气团,散发着强大的电光,据说这是光耀之种的进阶形态.\n使用该果实可以获得技能《乱空风暴》",
+coretype = 2,
+skillname="乱空风暴",
+skillpic = "skill21.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,造成#2%法术攻击力的伤害,#3%几率麻痹目标#4回合",xishu[1].attacknum,xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[22] = {
+corename = "永焰之种", 
+corepic = "core22.png",
+coreintro="烈熔峡谷的特产,怒焰红莲的种子,炽热的元素从中不断涌出.\n使用该果实可以获得技能《烈焰风暴》",
+coretype = 2,
+skillname="烈焰风暴",
+skillpic = "skill22.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,造成#2%法术攻击力的伤害,#3%几率灼伤目标#4回合",xishu[1].attacknum,xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[23] = {
+corename = "毒藤葵", 
+corepic = "core23.png",
+coreintro="巫毒雨林中遍布着这种植物,她的种子能散发出诱人的味道,禁忌.炽烈的.致命的...\n使用该果实可以获得技能《莫甘娜的轻语》",
+coretype = 2,
+skillname="莫甘娜的轻语",
+skillpic = "skill23.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,造成#2%法术攻击力的伤害,#3%几率使目标中毒#4回合",xishu[1].attacknum,xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[24] = {
+corename = "撕音", 
+corepic = "core24.png",
+coreintro="裂水藻生长的水边通常都有这种暗色的果实...放在耳边可以听到周围空气被震动的嗡响声.\n使用该果实可以获得技能《超声波冲击》",
+coretype = 2,
+skillname="超声冲击波",
+skillpic = "skill24.png",
+skillintro = function(xishu)
+ return formatsql("对一横排目标造成#1%法术攻击力的伤害",xishu[1].damage*100)
+end},
+[25] = {
+corename = "永冬之种", 
+corepic = "core25.png",
+coreintro="凛风苔原上的雪苔的根部会有这种成串的种子,即使在温暖炉火旁你也能感到它散发的寒气.\n使用该果实可以获得技能《霜冻攻击》",
+coretype = 2,
+skillname="霜冻攻击",
+skillpic = "skill25.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,#2%几率冰冻目标#3回合",xishu[1].damage*100,xishu[2].hit,xishu[2].last)
+end},
+[26] = {
+corename = "德库拉之牙", 
+corepic = "core26.png",
+coreintro="德库拉神木是唯一可以同时结出两种灵魂能力物质的灵木...德库拉之牙随时都散发着血腥的气息...\n使用该果实可以获得技能《德库拉之牙》",
+coretype = 2,
+skillname="德库拉之牙",
+skillpic = "skill26.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,按造成伤害的#2%恢复自身血量",xishu[1].damage*100,xishu[2].damage*100)
+end},
+[27] = {
+corename = "水帘之种",
+corepic = "core27.png",
+coreintro="紫水莲的种子在摘下的瞬间可以生出一片绚丽的水雾,远远看去像是悠然的水帘悬挂空中.\n使用该果实可以获得技能《亡溺》",
+coretype = 2,
+skillname="亡溺",
+skillpic = "skill27.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%法术攻击力的伤害,#2%几率降低目标#3%物理攻击力#4回合",xishu[1].damage*100,xishu[2].hit,xishu[2].damage*100,xishu[2].last)
+end},
+[28] = {
+corename = "亡焰", 
+corepic = "core28.png",
+coreintro="赛克库尼卡深处的山中有一种坚硬灌木,他的果实被扎库鲁人用来祭祀死去的人.\n使用该果实可以获得技能《致死飞弹》",
+coretype = 2,
+skillname="致死飞弹",
+skillpic = "skill28.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%魔法攻击力的伤害并附加#2*智力的伤害",xishu[1].damage*100,xishu[2].damage)
+end},
+[29] = {
+corename = "土灵之种", 
+corepic = "core29.png",
+coreintro="叹息平原上的渡昆树的树种.浓郁大地元素会不觉得被其吸引,环绕周围.\n使用该果实可以获得技能《斯库尔怒吼》",
+coretype = 2,
+skillpic = "skill29.png",
+skillname="斯库尔怒吼",
+skillintro = function(xishu)
+ return formatsql("增加所有己方英雄各#1点怒气",xishu[1].damage)
+end},
+[30] = {
+corename = "双生球莲", 
+corepic = "core30.png",
+coreintro="每颗种子都是成双结出,只有双生球莲是这样植物.\n使用该果实可以获得技能《生命赐福》",
+coretype = 2,
+skillname="生命赐福",
+skillpic = "skill30.png",
+skillintro = function(xishu)
+ return formatsql("随机作用己方#1目标,恢复#2%法术攻击力的血量",xishu[1].attacknum,xishu[1].damage*100)
+end},
+[31] = {
+corename = "费德提克", 
+corepic = "core31.png",
+coreintro="据说是诅咒神卫费德提克的怨念所化...看上去就阴郁无比.\n使用该果实可以获得技能《迟缓术》",
+coretype = 2,
+skillname="提述勒斯之吟",
+skillpic = "skill31.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,使其昏睡#2回合",xishu[1].attacknum,xishu[1].last)
+end},
+[32] = {
+corename = "巴洛克之果", 
+corepic = "core32.png",
+coreintro="白金之焰巴洛克的灵魂能力影响下产生的神木——炙桦的果实.\n使用该果实可以获得技能《白金之怒》",
+coretype = 2,
+skillname="白金之怒",
+skillpic = "skill32.png",
+skillintro = function(xishu)
+ return formatsql("随机作用己方#1目标,提升其物理攻击力#2%,持续#3回合",xishu[1].attacknum,xishu[1].damage*100,xishu[1].last)
+end},
+[33] = {
+corename = "婕拉之种", 
+corepic = "core33.png",
+coreintro="荆棘女神婕拉的哀怨情绪所化成的一种藤蔓的种子.\n使用该果实后可以获得技能《秘法保护者》",
+coretype = 3,
+skillname="秘法保护者",
+skillpic = "skill33.png",
+skillintro = function(xishu)
+ return formatsql("反弹#1%受到的法术攻击伤害",xishu[1].damage*100)
+end},
+[34] = {
+corename = "风舞之种",
+corepic = "core34.png",
+coreintro="风杨的种子,像蒲公英种一样可以随风飞逝,不在刚开种的时候采摘就要等明年了.\n使用该果实可以获得技能《风舞者祝福》",
+coretype = 3,
+skillname="风舞者祝福",
+skillpic = "skill34.png",
+skillintro = function(xishu)
+ return formatsql("增加自身#1%闪避率",xishu[1].damage*100)
+end},
+[35] = {
+corename = "毗沙之力",
+corepic = "core35.png",
+coreintro="",
+coretype = 1,
+skillname="窒息之刃",
+skillpic = "skill35.png",
+skillintro = function(xishu)
+ return formatsql("对单一目标造成#1%物理攻击力的伤害,#2%几率附加#3%物理攻击力的伤害,施法需要#4怒气",xishu[1].damage*100,xishu[2].hit,xishu[2].damage*100,xishu[1].nuneed)
+end},
+[36] = {
+corename = "妖魇",
+corepic = "core36.png",
+coreintro="",
+coretype = 2,
+skillname="战斗振奋",
+skillpic = "skill36.png",
+skillintro = function(xishu)
+ return formatsql("增加一位己方英雄#1点怒气",xishu[1].damage)
+end},
+[37] = {
+corename = "古里纳果",
+corepic = "core37.png",
+coreintro="",
+coretype = 2,
+skillname="嘲讽",
+skillpic = "skill37.png",
+skillintro = function(xishu)
+ return formatsql("随机选择一个目标,强制其攻击自己,在自己死亡后解除")
+end},
+[38] = {
+corename = "荆棘之种",
+corepic = "core38.png",
+coreintro="",
+coretype = 3,
+skillname="尖刺皮肤",
+skillpic = "skill38.png",
+skillintro = function(xishu)
+ return formatsql("反弹#1%受到的物理攻击伤害",xishu[1].damage*100)
+end},
+[39] = {
+corename = "谎言之种",
+corepic = "core39.png",
+coreintro="",
+coretype = 2,
+skillname="心智诱惑",
+skillpic = "skill39.png",
+skillintro = function(xishu)
+ return formatsql("使单一目标被魅惑,持续#1回合",xishu[1].last)
+end},
+[40] = {
+corename = "嘶哑之种",
+corepic = "core40.png",
+coreintro="",
+coretype = 2,
+skillname="沉默",
+skillpic = "skill40.png",
+skillintro = function(xishu)
+ return formatsql("随机作用对方#1目标,使其不能使用技能,持续#2回合",xishu[1].attacknum,xishu[1].last)
+end},
+}

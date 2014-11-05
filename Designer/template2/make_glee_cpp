@@ -1,0 +1,95 @@
+#include "View_<XML_NAME>.h"
+//------------------------------------------ controler -----------------------------------
+bool isHC_<XML_NAME>register = GleeCore::registerController("HC_<XML_NAME>", HC_<XML_NAME>::create);
+
+HC_<XML_NAME>::HC_<XML_NAME>()
+{
+    
+}
+
+HC_<XML_NAME>::~HC_<XML_NAME>()
+{
+    
+}
+
+void HC_<XML_NAME>::onEnter()
+{
+    this->_cclayer = GleeCore::getCCLayer("HL_<XML_NAME>");
+}
+
+bool HC_<XML_NAME>::onLeave()
+{
+    if(_cclayer) ((IGleeCCLayer*)_cclayer)->setLayerEnabled(false);
+    return true;
+}
+
+void HC_<XML_NAME>::onUpdate()
+{
+    if(_cclayer) ((IGleeCCLayer*)_cclayer)->setLayerEnabled(true);
+}
+
+//------------------------------------------ layer -------------------------------------
+bool isHL_<XML_NAME>register = GleeCore::registerLayer("HL_<XML_NAME>", HL_<XML_NAME>::create);
+
+HL_<XML_NAME>::HL_<XML_NAME>():
+_set(NULL),
+_document(NULL)
+{
+
+}
+
+HL_<XML_NAME>::~HL_<XML_NAME>()
+{
+    CC_SAFE_RELEASE_NULL(_set);
+    CC_SAFE_RELEASE_NULL(_document);
+}
+
+void HL_<XML_NAME>::setLayerEnabled(bool enabled)
+{
+    NodeHelper::setTouchable(this, enabled);
+}
+
+bool HL_<XML_NAME>::init()
+{
+    if(!GleeCCLayer::init()) {
+        return false;
+    }
+    
+    XMLFactory::getInstance()->setZipFilePath(CCString::createWithFormat("%s<XML_NAME>.cocos.zip", COCOS_ZIP_HEAD_PATH)->getCString());
+    _document = XMLFactory::getInstance()->createDocument("<XML_NAME>.cocos");
+    ElfXMLElement * element = XMLFactory::getInstance()->findElementByName(_document, "@root");
+    
+    _set = XMLFactory::getInstance()->createWithElement(element); 
+    _set->addOtherNodeSet( XMLFactory::getInstance()->createWithElement( XMLFactory::getInstance()->getRootElement(_document) ) );
+    
+    //@@@@[[[[
+    //// [[[[ auto assigned at <XML_DATE>
+    <template name="fields">
+<![CDATA[		this->_<FULL_NAME> = _set->get<TYPE>("<FULL_NAME>");
+]]>
+</template>
+    //]]]]@@@@
+
+    //button->setTarget(this, menu_selector(HL_<XML_NAME>::clickListener));
+    
+    CC_SAFE_RETAIN(_set);
+    CC_SAFE_RETAIN(_document);
+    
+    this->addChild(_set->getRootElfNode());
+    _set->getRootElfNode()->setPosition(ccp(0,0));
+    
+    this->initView();
+    
+    return true;
+}
+
+//do initialization here
+void HL_<XML_NAME>::initView()
+{
+    
+}
+
+void HL_<XML_NAME>::clickListener(CCObject * object)
+{
+    
+}

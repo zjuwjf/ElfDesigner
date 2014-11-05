@@ -1,0 +1,32 @@
+#include "T.h"
+
+/***
+ * static const char * const define here
+ */
+//created at <XML_DATE>
+<template name="fieldsDefine">
+	<![CDATA[const char * const T::<RES_ID_NAME> = "<RES_ID>";
+	]]>
+</template>
+
+//---------------------------------------------------------------------
+bool T::init()
+{
+    static bool sInitFlag = false;
+    if(!sInitFlag) {
+        /***
+         * static const key-value here
+         */
+        //ElfResMap::clear();
+        <template name="fieldsInit">
+		<![CDATA[        ElfResMap::put("<RES_ID>", "<RES_PLIST_ID>");
+		]]>
+		</template>
+
+        sInitFlag = true;
+    }
+    return sInitFlag;
+}
+
+//static const bool sInitCompleted = T::init();
+

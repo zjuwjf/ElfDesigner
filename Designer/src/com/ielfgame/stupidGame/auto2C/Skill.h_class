@@ -1,0 +1,127 @@
+#ifndef _SkillEN_SKILL_H_
+#define _SkillEN_SKILL_H_
+
+#include "FightConstants.h"
+#include "Object.h"
+#include "FightManager.h"
+
+#include "Hero.h"
+#include "HeroData.h"
+#include "Interpolator.h"
+
+#include "Actions.h"
+#include "Skill.h"
+
+// SkillZH auto 
+class SkillEN : public BasicSkill 
+{ 
+public: 
+	SkillEN()
+	{
+		setSkillId(SkillID);
+		
+		//logic 9
+		//mOnIsToAttack = new OnIsToAttackAdapter(this, OnIsToAttack_Func_Sel(SkillEN::doItOnIsToAttack)); 
+		//mOnPickSkill = new OnPickSkillAdapter(this, OnPickSkill_Func_Sel(SkillEN::doItOnPickSkill)); 
+		mOnCalcPickObjects = new OnCalcPickObjectsAdapter(this, OnCalcPickObjects_Func_Sel(SkillEN::doItOnCalcPickObjects)); 
+		//mOnCalcHit = new OnCalcHitAdapter(this, OnCalcHit_Func_Sel(SkillEN::doItOnCalcHit)); 
+		mOnCalcHurt = new OnCalcHurtAdapter(this, OnCalcHurt_Func_Sel(SkillEN::doItOnCalcHurt)); 
+		//mOnCalcBeHurt = new OnCalcBeHurtAdapter(this, OnCalcBeHurt_Func_Sel(SkillEN::doItOnCalcBeHurt)); 
+		//mOnCalcReboundHurt = new OnCalcReboundHurtAdapter(this, OnCalcReboundHurt_Func_Sel(SkillEN::doItOnCalcReboundHurt)); 
+		//mOnCastBuff = new OnCastBuffAdapter(this, OnCastBuff_Func_Sel(SkillEN::doItOnCastBuff)); 
+		//mOnBeCastBuff = new OnBeCastBuffAdapter(this, OnBeCastBuff_Func_Sel(SkillEN::doItOnBeCastBuff)); 
+
+		//graph 8
+		//mGraphOnPassAttack = new GraphOnPassAttackAdapter(this, GraphOnPassAttack_Trigger_Func_Sel(SkillEN::doItGraphOnPassAttack), 0);
+		mGraphOnAttackMoveIn = new GraphOnAttackMoveInAdapter(this, GraphOnAttackMoveIn_Trigger_Func_Sel(SkillEN::doItGraphOnAttackMoveIn), MOVE_IN_AT_FRONT_TIME);
+		mGraphOnAttackStart = new GraphOnAttackStartAdapter(this, GraphOnAttackStart_Trigger_Func_Sel(SkillEN::doItGraphOnAttackStart), GRAPH_ON_ATTACK_START_TIME);
+		mGraphOnAttack = new GraphOnAttackAdapter(this, GraphOnAttack_Trigger_Func_Sel(SkillEN::doItGraphOnAttack), 0);
+		mGraphOnAttackEach = new GraphOnAttackEachAdapter(this, GraphOnAttackEach_Trigger_Func_Sel(SkillEN::doItGraphOnAttackEach), 0);
+		//mGraphOnBeMiss = new GraphOnBeMissAdapter(this, GraphOnBeMiss_Trigger_Func_Sel(SkillEN::doItGraphOnBeMiss), 0);
+		//mGraphOnAttackEnd = new GraphOnAttackEndAdapter(this, GraphOnAttackEnd_Trigger_Func_Sel(SkillEN::doItGraphOnAttackEnd), 0);
+		mGraphOnAttackMoveOut = new GraphOnAttackMoveOutAdapter(this, GraphOnAttackMoveOut_Trigger_Func_Sel(SkillEN::doItGraphOnAttackMoveOut), MOVE_OUT_AT_FRONT_TIME);
+	} 
+	~SkillEN()
+	{
+		
+	}
+	
+	//logic
+	bool  doItOnIsToAttack(float delay, FightManager * manager, Hero * attacker)
+	{
+		return ActionFunc::doItOnIsToAttack(delay, manager, attacker, true);
+	}
+	void  doItOnPickSkill(float delay, FightManager * manager, Hero * attacker)
+	{
+		ActionFunc::doItOnPickSkill(delay, manager, attacker);
+	}
+	//Random_N, Line_X, Line_Y, Front, 
+	void  doItOnCalcPickObjects(float delay, FightManager * manager, Hero * attacker, Hero * picksRet[])
+	{
+		ActionFunc::doItOnCalcPickObjects(delay, manager, attacker, picksRet, Front, 1);
+	}
+	bool  doItOnCalcHit(float delay, FightManager * manager, Hero * attacker, Hero * pick)
+	{
+		return ActionFunc::doItOnCalcHit(delay, manager, attacker, pick);
+	}
+	//Physics_Hurt = 0, Magic_Hurt, Acred_Hurt, Treat_Hurt, 
+	void  doItOnCalcHurt(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurtRet[]) 
+	{
+		ActionFunc::doItOnCalcHurt(delay, manager, attacker, pick, hurtRet, Physics_Hurt);
+	}
+	void  doItOnCalcBeHurt(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurt[])
+	{
+		ActionFunc::doItOnCalcBeHurt(delay, manager, attacker, pick, hurt);
+	}
+	void  doItOnCalcReboundHurt(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurt[])
+	{
+		ActionFunc::doItOnCalcReboundHurt(delay, manager, attacker, pick, hurt);
+	}
+	void  doItOnCastBuff(float delay, FightManager * manager, Hero * attacker, Hero * pick)
+	{
+		ActionFunc::doItOnCastBuff(delay, manager, attacker, pick);
+	}
+	void  doItOnBeCastBuff(float delay, FightManager * manager, Hero * attacker, Hero * pick)
+	{
+		ActionFunc::doItOnBeCastBuff(delay, manager, attacker, pick);
+	}
+	//graph
+	void  doItGraphOnPassAttack(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{
+		ActionFunc::doItGraphOnPassAttack(manager, attacker, picksRet);
+	}
+	//No_Move, Move_At_Front, Move_At_Middle, 
+	void doItGraphOnAttackMoveIn(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{
+		ActionFunc::doItGraphOnAttackMoveIn(manager, attacker, picksRet, Move_At_Front, InterHelper::Viscous);
+	}
+	//WuLiShiFa, FaShuShiFa, WuLiTuGong
+	void doItGraphOnAttackStart(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{
+		ActionFunc::doItGraphOnAttackStart(manager, attacker, picksRet, WuLiShiFa, getSkillId());
+	}
+	void doItGraphOnAttack(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{
+		ActionFunc::doItGraphOnAttack(manager, attacker, picksRet);
+	}
+	void doItGraphOnAttackEach(FightManager * manager,Hero * attacker,Hero * picksRet[],Hero * pick)
+	{
+		ActionFunc::doItGraphOnAttackEach(manager, attacker, picksRet, pick);
+	}
+	void doItGraphOnBeMiss(FightManager * manager,Hero * attacker,Hero * picksRet[],Hero * pick)
+	{
+		ActionFunc::doItGraphOnBeMiss(manager, attacker, picksRet, pick);
+	}
+	void doItGraphOnAttackEnd(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{
+		ActionFunc::doItGraphOnAttackEnd(manager, attacker, picksRet);
+	}
+	//No_Move, Move_At_Front, Move_At_Middle, 
+	void doItGraphOnAttackMoveOut(FightManager * manager,Hero * attacker,Hero * picksRet[])
+	{ 
+		ActionFunc::doItGraphOnAttackMoveOut(manager, attacker, picksRet, Move_At_Front, InterHelper::Viscous);
+	} 
+}; 
+
+#endif
+

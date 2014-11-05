@@ -1,0 +1,9 @@
+typedef bool (*OnIsToAttack_Func)(float delay, FightManager * manager, Hero * attacker);
+typedef void (*OnPickSkill_Func)(float delay, FightManager * manager, Hero * attacker);
+typedef void (*OnCalcPickObjects_Func)(float delay, FightManager * manager, Hero * attacker, Hero * picksRet[]); 
+typedef bool (*OnCalcHit_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick);
+typedef void (*OnCalcHurt_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurtRet[]);
+typedef void (*OnCalcBeHurt_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurt[]);
+typedef void (*OnCalcReboundHurt_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick, int hurt[]);
+typedef void (*OnCastBuff_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick);
+typedef void (*OnBeCastBuff_Func)(float delay, FightManager * manager, Hero * attacker, Hero * pick);

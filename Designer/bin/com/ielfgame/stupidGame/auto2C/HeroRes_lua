@@ -1,0 +1,10 @@
+
+--auto FolderName
+heroRes[ID] = {}
+heroRes[ID].HuXi = {HuXiRes} 
+heroRes[ID].hxFd = HuXiFD
+heroRes[ID].SiWang = {SiWangRes}
+heroRes[ID].swFd = 0.1
+heroRes[ID].YiDong = {YiDongRes}
+heroRes[ID].ydFd = 0.1
+heroRes[ID].TouXiang = TouXiangRes

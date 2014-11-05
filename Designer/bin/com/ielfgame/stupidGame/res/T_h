@@ -1,0 +1,27 @@
+#ifndef __MainDesigner__T__
+#define __MainDesigner__T__
+
+#include "elf.h"
+USING_NS_ELF;
+
+#include <string>
+#include <map>
+
+using namespace std;
+
+class T
+{
+public:
+    static bool init();
+
+public:
+    /***
+     * static const string declare here
+     */
+    <template name="fields">
+	<![CDATA[		static const char * const <RES_ID_NAME>;
+	]]>
+	</template>
+};
+
+#endif

@@ -1,0 +1,1 @@
+java -jar -Xms64m -Xmx512m MAIN_JAR -consloe

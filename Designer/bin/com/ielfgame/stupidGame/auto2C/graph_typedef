@@ -1,0 +1,8 @@
+typedef void (*GraphOnPassAttack_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);
+typedef void (*GraphOnAttackMoveIn_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);
+typedef void (*GraphOnAttackStart_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);
+typedef void (*GraphOnAttack_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);
+typedef void (*GraphOnAttackEach_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[],Hero * pick);
+typedef void (*GraphOnBeMiss_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[],Hero * pick);
+typedef void (*GraphOnAttackEnd_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);
+typedef void (*GraphOnAttackMoveOut_Trigger_Func)(FightManager * manager,Hero * attacker,Hero * picksRet[]);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<manifest version="2.0">
+  <ProjectSetting Full_Name_Reduced="true" Designer_Resource_REF_DIR="D:\pet_svn\develop\editor\Resources" image="image" xml="xml" tmp="tmp" raw="raw" font="font" language="language" language_plist="Localizable_cn.plist" config="config" XCode_Resource_REF_DIR="null" script="script" zip="zip" langEditMode="Mode1" Screen_Resolution="R_1136_640" Orientation="Horizontal" ScreenScale="0.5,0.5"/>
+  <DoOnSave save_template="true" save_zip="true" save_language="true"/>
+  <DefaultBatch batchOp="null" source="null" element="null" attribute="null" value1="null" value2="null"/>
+  <FrameInterval GL_INTERVAL="15" UI_INTERVAL="400"/>
+  <MenuConfig AutoCleanOnImport="true" AutoBatch="false" AutoNameWhenCopy="true"/>
+  <AutoBackground onDeactivated="false" onIconified="false"/>
+  <LuaTempleConfig LuaTemple="GleeCPlusPlusTemple" DoNotShowAgain="false"/>
+  <ResIOS2AndroidData IOS_DEBUG_PATH_REF_DIR="null" IOS_RELEASE_PATH_REF_DIR="null" Android_DEBUG_PATH_REF_DIR="null" Android_RELEASE_PATH_REF_DIR="null" mode="Debug" scale="1.0" AndroidProjects="{ul}" AndroidSo_REF_FILE_so="null" AndroidProjectLibs="{ul}"/>
+</manifest>

@@ -1,0 +1,68 @@
+Node Tree :
+	F2 :    重命名节点
+	F3 :    复制节点
+	F4 :    深度复制节点
+	F5 :    刷新节点
+	F6 :    深度刷新节点
+	
+	Del :   删除节点到回收站
+	Ctrl(Cmd) + Del : 删除节点,不保留
+
+	Ctrl(Cmd) + N :    新建节点
+	Ctrl(Cmd) + F :    搜索节点
+	Ctrl(Cmd) + P :    搜索plist
+	Ctrl(Cmd) + E :    展开节点
+	Ctrl(Cmd) + T :    节点纹理打包
+	Ctrl(Cmd) + H :    帮助
+	
+	支持节点之间拖拽
+	
+
+Main View :
+	F7 :    显示/隐藏 辅助线
+	F8 :    显示/隐藏 Fps
+	
+	Del :   删除节点到回收站
+	Ctrl(Cmd) + Del : 删除节点,不保留
+
+	Ctrl(Cmd) + F :    搜索节点
+	Ctrl(Cmd) + P :    搜索plist
+	Ctrl(Cmd) + E :    展开节点
+	Ctrl(Cmd) + T :    节点纹理打包
+	Ctrl(Cmd) + H :    帮助
+	
+	Ctrl(Cmd) + R :    重置MainView的位置和缩放
+	Ctrl(Cmd) + N :    移动到当前选中节点
+	Ctrl(Cmd) + Z :    撤销
+	Ctrl(Cmd) + Y :    重做
+	Ctrl(Cmd) + MouseWheel : 缩放MainView
+	
+	↑,←,→,↓ :   移动节点
+	Ctrl(Cmd) + ↑,←,→,↓ :    移动节点,速度*2
+	
+	支持拖拽(文件夹,*.xml,*.cocos,*.plist,*.png,*.jpg...) 到  Main View
+	
+	Right Double Click :    选择节点
+	Left Double Click :    显示/隐藏  节点 控制(缩放, 旋转, 描点, 透明度)
+	Left Move :    移动选中节点
+	Shift + Scale Control :    等量缩放节点
+	
+	
+Node(Global) Property View :
+	Ctrl(Cmd) + C :    拷贝项的值, 如果项支持
+	Ctrl(Cmd) + V :    粘贴项的值, 如果项支持
+	Ctrl(Cmd) + Z :    撤销
+	Ctrl(Cmd) + Y :    重做
+	
+	选中一个节点后
+	Ctrl(Cmd) + ↑,←,→,↓ : 设置项的值间隔
+	← Or → : 减少或增加  项的值 或者 项的x值
+	↓ Or ↑ : 减少或增加 项的y值
+	Shift + ↑,←,→,↓ : 减少或增加  项的值 或者项的x,y值
+	
+	支持拖拽(文件夹,*.plist,*.png,*.jpg...) 到 某些 项
+	
+Motion Edit View :
+   	绑定 Motion Node 后:
+   	
+	

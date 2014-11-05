@@ -1,0 +1,10 @@
+local _res = {}
+
+--@@@@[[[[  created at <XML_DATE>
+<template name="fields">
+<![CDATA[_res["<SIMPLE_RES_ID>"] = "<RES_ID>" <COMMENT>
+]]>
+</template>
+--@@@@]]]]
+
+return _res

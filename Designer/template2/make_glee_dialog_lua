@@ -1,0 +1,63 @@
+#ifndef __herox_android__View_<XML_NAME>__
+#define __herox_android__View_<XML_NAME>__
+
+#include "GleeCommon.h" 
+#include "GleeCore.h" 
+using namespace GLEE;
+
+#include "elf.h"
+USING_NS_ELF;
+
+#include "ViewConfig.h"
+
+class HC_<XML_NAME> : public GleeController
+{
+public:
+    HC_<XML_NAME>();
+    ~HC_<XML_NAME>();
+
+    virtual void onEnter();
+    virtual bool onLeave();
+    virtual void onUpdate();
+
+    static IGleeController * create() {
+        return new HC_<XML_NAME>();
+    };
+};
+
+class HL_<XML_NAME> : public GleeCCLayer
+{
+public:
+    HL_<XML_NAME>();
+    ~HL_<XML_NAME>();
+
+    virtual bool init();
+
+    static IGleeCCLayer * create() {
+        HL_<XML_NAME> * ret = new HL_<XML_NAME>();
+        ret->init();
+        ret->autorelease();
+        return ret;
+    };
+    
+    virtual void setLayerEnabled(bool enabled);
+    
+    virtual void clickListener(CCObject * object);
+    virtual void initView();
+
+private:
+    NodeSet * _set;
+    ElfXMLDocument * _document;
+    
+    //@@@@[[[[
+    //// [[[[ auto declared at <XML_DATE>
+    <template name="fields">
+	<![CDATA[		<TYPE> * _<FULL_NAME>;
+	]]>
+</template>
+    //]]]]@@@@
+    
+    
+};
+
+#endif /* defined(__herox_android__View_<XML_NAME>__) */
