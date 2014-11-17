@@ -82,7 +82,7 @@ public class TpPlistScaner {
 				plistToIdMap.put(shortPath, set);
 
 				if (plistToPvr != null) {
-					final String[] subs = new String[] { ".pvr.ccz", ".pvr", ".png", ".PNG" };
+					final String[] subs = new String[] { ".pvr.ccz", ".pvr", ".png", ".PNG", ".pkm", };
 					String realTexture = shortPath;
 					for (int i = 0; i < subs.length; i++) {
 						String pvr = shortPath + subs[i];

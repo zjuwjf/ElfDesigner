@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.Shell;
 import com.ielfgame.stupidGame.MainDesigner;
 import com.ielfgame.stupidGame.batch.TpPlistScaner;
 import com.ielfgame.stupidGame.config.ProjectSetting;
+import com.ielfgame.stupidGame.crypto.XXTEA;
+import com.ielfgame.stupidGame.dialog.PopDialog;
 import com.ielfgame.stupidGame.power.PowerMan;
 import com.ielfgame.stupidGame.utils.FileHelper;
 
@@ -547,7 +549,6 @@ public class ResManager {
 	private void publishImage() {
 		// plist to image
 		// png to image root
-		
 		final String source = getDesignerImageAsset();
 		final String dest = getXCodeImageAsset();
 
@@ -570,11 +571,28 @@ public class ResManager {
 		compareArtAndCodePackFile(new File(source), destDir);
 		compareArtAndCodeUnpackFile(dest, name2path, idToPlistMap);
 	}
+	
+	private void publishImageWithXXTea(final String key) {
+		// plist to image
+		// png to image root
+		publishImage();
+		
+		final String dest = getXCodeImageAsset();
+		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg"}, true);
+		for(final String pngPath : allPngs) {
+			final String tmp = pngPath + ".xxtmp";
+			XXTEA.encrypt(pngPath, tmp, key);
+			FileHelper.removeFile(pngPath);
+			
+			final File f = new File(tmp);
+			f.renameTo(new File(pngPath));
+		}
+	}
 
 	private final static void copyPlistPvrQuickly(final File source, final File dest) {
 		final String name = source.getName();
 		if (source.isFile()) {
-			if (name.endsWith(".plist") || name.endsWith(".ccz") || name.endsWith(".PNG")) {
+			if (name.endsWith(".plist") || name.endsWith(".ccz") || name.endsWith(".PNG") || name.endsWith(".pkm")) {
 				FileHelper.copyFileQuickly(source, dest.getParentFile(), dest.getName());
 			}
 		} else if (source.isDirectory()) {
@@ -783,6 +801,25 @@ public class ResManager {
 			}
 		}
 	}
+	
+	private final static void publishBMFontWithXXTea(final String key) {
+		publishBMFont();
+		
+		final String dest = ResManager.getSingleton().getXCodeBMFontAsset();
+		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg"}, true);
+		for(final String pngPath : allPngs) {
+			final String tmp = pngPath + ".xxtmp";
+			XXTEA.encrypt(pngPath, tmp, key);
+			FileHelper.removeFile(pngPath);
+			
+			final File f = new File(tmp);
+			f.renameTo(new File(pngPath));
+		}
+	}
+	
+	/***
+	 * 
+	 */
 
 	public static void publishLanguage() {
 		String mode = PowerMan.getSingleton(ProjectSetting.class).langEditMode;
@@ -804,6 +841,40 @@ public class ResManager {
 			}
 
 		}
+	}
+	
+	public void publishWithXXTea() {
+		final ViewInfoDialog vid = ViewInfoDialog.getSingleton();
+		vid.appendInfo("Publish running...", null);
+
+		if (!FileHelper.isDir(getDesignerImageAsset())) {
+			vid.appendInfo(new StringBuilder("Source:").append(getDesignerImageAsset()).append(" is not a directory!").toString(), null);
+			return;
+		}
+
+		if (!FileHelper.isDir(getXCodeImageAsset())) {
+			new File(getXCodeImageAsset()).mkdirs();
+
+			if (!FileHelper.isDir(getXCodeImageAsset())) {
+				vid.appendInfo(new StringBuilder("Destination:").append(getXCodeImageAsset()).append(" is not a directory!").toString(), null);
+				return;
+			}
+		}
+
+		new Thread() {
+			public void run() {
+				try {
+					publishImageWithXXTea("code");
+					publishLanguage();
+					publishOthers();
+					publishCPlusPlusT();
+					publishBMFontWithXXTea("code");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				vid.appendInfo("Publish Completed!", null);
+			}
+		}.start();
 	}
 
 	public void publish() {
@@ -827,8 +898,6 @@ public class ResManager {
 		new Thread() {
 			public void run() {
 				try {
-					
-					
 					publishImage();
 
 					publishLanguage();

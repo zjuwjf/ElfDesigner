@@ -265,6 +265,18 @@ public class FileBar {
 				}
 			}
 		});
+		
+		final MenuItem item4 = new MenuItem(menu, SWT.PUSH);
+		item4.setText(LanguageManager.get("Publish All(encrypt-png)"));
+		item4.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					ResManager.getSingleton().publishWithXXTea();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private void createSetMenu(Menu parent) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <manifest version="2.0">
-  <ProjectSetting configName="NewConfig.xml" Full_Name_Reduced="true" Designer_Resource_REF_DIR="D:\svn_project_pet\develop\editor\Resources" language_plist="Localizable_cn.plist" XCode_Resource_REF_DIR="D:\transfer2" script="script" langEditMode="Mode1" Screen_Resolution="R_1136_640" Orientation="Horizontal" ScreenScale="0.5,0.5"/>
+  <ProjectSetting configName="NewConfig.xml" Full_Name_Reduced="true" Designer_Resource_REF_DIR="D:\svn_project_pet\develop\editor\Resources" language_plist="Localizable_cn.plist" XCode_Resource_REF_DIR="D:\transfer2" script="script" langEditMode="Mode1" Screen_Resolution="R_1136_640" Orientation="Horizontal" ScreenScale="0.75,0.75"/>
   <DoOnSave save_template="false" save_zip="false" save_language="false"/>
   <DefaultBatch batchOp="null" source="null" element="null" attribute="null" value1="null" value2="null"/>
   <FrameInterval GL_INTERVAL="15" UI_INTERVAL="400"/>

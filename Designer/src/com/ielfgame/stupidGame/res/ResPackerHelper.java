@@ -182,12 +182,12 @@ public class ResPackerHelper {
 				lastDir.mkdir();
 			}
 			
-			final LinkedList<String> lastPngs = FileHelper.getFullPahIds(lastDir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG" }, false);
+			final LinkedList<String> lastPngs = FileHelper.getFullPahIds(lastDir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG", ".pkm" }, false);
 			for (final String path : lastPngs) {
 				new File(path).delete();
 			}
 
-			final LinkedList<String> pngs = FileHelper.getFullPahIds(dir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG" }, false);
+			final LinkedList<String> pngs = FileHelper.getFullPahIds(dir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG", ".pkm" }, false);
 			for (final String path : pngs) {
 				FileHelper.copyFileQuickly(new File(path), lastDir, FileHelper.getSimpleNameWithSuffix(path));
 			}
@@ -205,13 +205,13 @@ public class ResPackerHelper {
 
 			final File last = new File(dir, LastDirName);
 
-			final LinkedList<String> plists = FileHelper.getFullPahIds(dir, new String[] { ".plist", ".ccz", ".PNG" }, false);
+			final LinkedList<String> plists = FileHelper.getFullPahIds(dir, new String[] { ".plist", ".ccz", ".PNG", ".pkm" }, false);
 			final int plistNum = plists.size();
 			if (plistNum == 0 || plistNum%2==1 ) {
 				return true;
 			}
 
-			final LinkedList<String> pngs = FileHelper.getFullPahIds(dir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG" }, false); 
+			final LinkedList<String> pngs = FileHelper.getFullPahIds(dir, new String[] { ".png", ".jpg", ".tp", ".plist", ".ccz", ".PNG", ".pkm" }, false); 
 			final LinkedList<String> lastPngs = FileHelper.getFullPahIds(last, null, false); 
 			// plist
 
@@ -270,7 +270,8 @@ public class ResPackerHelper {
 //		AnySize - Minimum size
 //		NPOT - Any size but power of 2
 		
-		return String.format("Texturepacker --algorithm MaxRects --maxrects-heuristics Best --trim-mode Trim --extrude 2 --padding 2 --format cocos2d --texture-format %s --opt %s --size-constraints %s  %s --data %s.plist  --sheet %s.%s%s", imageformat, format.toRGBString(), format.getSizeFromat(), format.getDitherFormat().toString(), name, name, subfix, sb.toString());
+		//--disable-rotation
+		return String.format("Texturepacker --algorithm MaxRects --maxrects-heuristics Best --trim-mode Trim --extrude 1 --padding 0 --format cocos2d --texture-format %s --opt %s --size-constraints %s  %s --data %s.plist  --sheet %s.%s%s", imageformat, format.toRGBString(), format.getSizeFromat(), format.getDitherFormat().toString(), name, name, subfix, sb.toString());
 	}
 
 	private static boolean packer(final ShellRunner sr, final String name, final ImageFormat format, final LinkedList<String> simplePath) {
@@ -325,6 +326,7 @@ public class ResPackerHelper {
 				FileHelper.removeFile(new File(dir, name+".plist"));
 				FileHelper.removeFile(new File(dir, name+".PNG"));
 				FileHelper.removeFile(new File(dir, name+".pvr.ccz"));
+				FileHelper.removeFile(new File(dir, name+".pkm"));
 				
 				// iteration
 				LinkedList<String> testList = new LinkedList<String>(pathList);
@@ -480,11 +482,11 @@ public class ResPackerHelper {
 		if(dir.isDirectory()) {
 			FileHelper.removeFile(new File(dir, ".last"));
 			
-//			final LinkedList<String> list = FileHelper.getFullPahIds(dir, new String[]{".tp",".plist",".ccz", ".PNG"}, false);
-			final LinkedList<String> list = FileHelper.getFullPahIds(dir, new String[]{".plist",".ccz", ".PNG"}, false);
-			for(String path : list) {
-				FileHelper.removeFile(path);
-			}
+//			final LinkedList<String> list = FileHelper.getFullPahIds(dir, new String[]{".tp",".plist",".ccz", ".PNG", ".pkm"}, false);
+			final LinkedList<String> list = FileHelper.getFullPahIds(dir, new String[]{".plist",".ccz", ".PNG", ".pkm"}, false);
+			for(String path : list) { 
+				FileHelper.removeFile(path); 
+			} 
 			
 			if(deep) {
 				final File [] fs = dir.listFiles();
@@ -497,9 +499,7 @@ public class ResPackerHelper {
 	
 //	public static void main(final String [] args) {
 //		final String dir = "D:\\Glee works\\card_product\\new\\doc\\designer\\Resources\\";
-//		
 //		final File dirFile = new File(dir);
-//		
 //		
 //	}
 }

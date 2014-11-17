@@ -99,7 +99,7 @@ public class FileHelper {
 		}
 		return file.delete();
 	}
-
+	
 	public static void removeFile(final String file) {
 		final boolean ret = removeFile(new File(file));
 		if (!ret) { 

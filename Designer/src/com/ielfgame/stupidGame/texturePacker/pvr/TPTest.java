@@ -360,7 +360,7 @@ public class TPTest {
 		if (listener != null) {
 			listener.onProgress("coping files except *.plist, *.pvr", "", 20, 100);
 		}
-		FileHelper.copyDeepBut(source, destination, new String[] { "plist", "pvr", "ccz", "pvr.ccz", ".PNG" }, new IFileMatch() {
+		FileHelper.copyDeepBut(source, destination, new String[] { "plist", "pvr", "ccz", "pvr.ccz", ".PNG", ".pkm" }, new IFileMatch() {
 			public boolean isFileMatch(File file) {
 				final String name = file.getName();
 				if (name.equals(".nvcd") || name.equals(".svn") || name.equals(".cocos")) {

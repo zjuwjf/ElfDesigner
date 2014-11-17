@@ -1,5 +1,10 @@
 package com.ielfgame.stupidGame.crypto;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 /* XXTEA encryption arithmetic library.
  *
  * Copyright: Ma Bingyao <andot@ujn.edu.cn>
@@ -167,5 +172,104 @@ public final class XXTEA {
 			result[i] = (byte) ((data[i >>> 2] >>> ((i & 3) << 3)) & 0xff);
 		}
 		return result;
+	}
+	
+	public static void encrypt(final String source, final String destination, final String key) {
+		try {
+			final BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(source)));
+
+			final int size = bis.available();
+
+			final byte[] bytes = new byte[size];
+
+			final FileOutputStream fos = new FileOutputStream(destination);
+
+			while (true) {
+				final int n = bis.read(bytes);
+				if (n > 0) {
+					if (n == bytes.length) {
+						final byte[] bytesout = XXTEA.encrypt(bytes, key.getBytes("utf-8"));
+						fos.write(bytesout);
+					} else {
+						System.err.println("Not Excepted");
+
+						final byte[] lastblock = new byte[n];
+						for (int i = 0; i < n; i++) {
+							lastblock[i] = bytes[i];
+						}
+
+						final byte[] bytesout = XXTEA.encrypt(lastblock, key.getBytes("utf-8"));
+						fos.write(bytesout);
+					}
+				} else {
+					break;
+				}
+			}
+			try {
+				fos.flush();
+				fos.close();
+			} catch (Exception e) {
+			}
+
+			try {
+				bis.close();
+			} catch (Exception e) {
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void decrypt(final String source, final String destination, final String key) {
+		try {
+			final BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(source)));
+
+			final int size = bis.available();
+
+			final byte[] bytes = new byte[size];
+
+			final FileOutputStream fos = new FileOutputStream(destination);
+
+			assert (fos != null);
+
+			while (true) {
+				final int n = bis.read(bytes);
+				if (n > 0) {
+					if (n == bytes.length) {
+						final byte[] bytesout = XXTEA.decrypt(bytes, key.getBytes("utf-8"));
+						fos.write(bytesout);
+					} else {
+
+						System.err.println("Not Excepted");
+
+						final byte[] lastblock = new byte[n];
+						for (int i = 0; i < n; i++) {
+							lastblock[i] = bytes[i];
+						}
+
+						final byte[] bytesout = XXTEA.decrypt(lastblock, key.getBytes("utf-8"));
+						fos.write(bytesout);
+					}
+
+				} else {
+					break;
+				}
+			}
+
+			try {
+				fos.flush();
+				fos.close();
+			} catch (Exception e) {
+			}
+
+			try {
+				bis.close();
+			} catch (Exception e) {
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

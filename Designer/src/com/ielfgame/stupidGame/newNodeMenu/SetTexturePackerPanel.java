@@ -70,6 +70,7 @@ public class SetTexturePackerPanel {
 		PVRTC2(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC2", "POT", 0),
 		PVRTC2_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC2_NOALPHA", "POT", 0),
 		PNG8888(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 0),
+		ETC1(DitherFormat.Fs,"pkm","pkm","ETC1", "POT", 0),
 		
 //		PVRTC4_RAW(DitherFormat.FsAlpha,"pvr2","pvr","PVRTC4", "POT", 0), 
 		
