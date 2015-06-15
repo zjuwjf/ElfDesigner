@@ -32,7 +32,6 @@ import com.ielfgame.stupidGame.design.hotSwap.flash.FlashMainNode;
 import com.ielfgame.stupidGame.design.hotSwap.flash.KeyFrameArrayNode;
 import com.ielfgame.stupidGame.design.hotSwap.flash.KeyFrameNode;
 import com.ielfgame.stupidGame.design.hotSwap.flash.KeyStorageNode;
-import com.ielfgame.stupidGame.dialog.AnalysisDialog;
 import com.ielfgame.stupidGame.dialog.MessageDialog;
 import com.ielfgame.stupidGame.dialog.MultiLineDialog;
 import com.ielfgame.stupidGame.dialog.PopDialog;
@@ -531,11 +530,14 @@ public class XMLWorkSpaceTab extends AbstractWorkSpaceTab {
 							}
 
 							Arrays.sort(notFoundArray);
-
-							final AnalysisDialog<String[]> dialog = new AnalysisDialog<String[]>("" + FileHelper.getSimpleName(path) + ":Not Existed Resids(" + notFoundArray.length + ")", false);
-							dialog.open(notFoundArray, String[].class);
+							
+							System.err.println("Not Found Res:");
+							for(final String resid : notFoundArray) {
+								System.err.println(resid);
+							}
+//							final AnalysisDialog<String[]> dialog = new AnalysisDialog<String[]>("" + FileHelper.getSimpleName(path) + ":Not Existed Resids(" + notFoundArray.length + ")", false);
+//							dialog.open(notFoundArray, String[].class);
 						}
-
 						// XMLVersionManage.writeToXML(objs, path);
 					}
 				}

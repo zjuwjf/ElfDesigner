@@ -130,6 +130,54 @@ public class FileHelper {
 		}
 		return null;
 	}
+	
+	public static LinkedList<String> getFullPahIdsWithIgnore(final File file, final String subs[], final boolean deep) {
+		final LinkedList<String> ret = new LinkedList<String>();
+		if (file.exists()) {
+			if (file.isDirectory()) {
+				if(file.getName().startsWith(".")) {
+					return ret;
+				}
+				
+				final File[] fs = file.listFiles();
+				if (deep) {
+					for (File f : fs) {
+						ret.addAll(getFullPahIdsWithIgnore(f, subs, deep));
+					}
+				} else {
+					for (File f : fs) {
+						if (!f.isDirectory()) {
+							final String name = f.getAbsolutePath();
+							if (subs != null) {
+								for (String sub : subs) {
+									if (name.endsWith(sub)) {
+										ret.add(name);
+										break;
+									}
+								}
+							} else {
+								ret.add(name);
+							}
+						}
+					}
+				}
+			} else if (file.isFile()) {
+				final String name = file.getAbsolutePath();
+				if (subs != null) {
+					for (String sub : subs) {
+						if (name.endsWith(sub)) {
+							ret.add(name);
+							break;
+						}
+					}
+				} else {
+					ret.add(name);
+				}
+			}
+		}
+
+		return ret;
+	}
 
 	public static LinkedList<String> getFullPahIds(final File file, final String subs[], final boolean deep) {
 		final LinkedList<String> ret = new LinkedList<String>();
@@ -638,12 +686,16 @@ public class FileHelper {
 
 	public static void travelFiles(final String path, final IteratorFile it) {
 		final File file = new File(path);
+		travelFiles(file, it);
+	}
+	
+	public static void travelFiles(final File file, final IteratorFile it) {
 		if (file.exists()) {
 			if (!it.iterator(file)) {
-				final String[] list = file.list();
+				final File[] list = file.listFiles();
 				if (list != null) {
-					for (String f : list) {
-						travelFiles(path + DECOLLATOR + f, it);
+					for (File f : list) {
+						travelFiles(f, it);
 					}
 				}
 			}
@@ -893,5 +945,39 @@ public class FileHelper {
 			}
 		}
 		return copySizes;
+	}
+	
+	public static LinkedList<String> readUTF8(final File file) {
+		final LinkedList<String> ret = new LinkedList<String>();
+		final BufferedReader reader = getUTF8Reader(file);
+		if (reader != null) {
+			String line = null;
+			try {
+				while ((line = reader.readLine()) != null) {
+					ret.add(line);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return ret;
+	}
+
+	public static void contentReplace(final File file, final String r1, final String v1) {
+		final LinkedList<String> list = readUTF8(file);
+		final LinkedList<String> outList = new LinkedList<String>();
+		
+		for(String line : list) {
+			outList.add( line.replace( r1, v1) );
+		}
+		
+		writeUTF8(outList, file);
 	}
 }

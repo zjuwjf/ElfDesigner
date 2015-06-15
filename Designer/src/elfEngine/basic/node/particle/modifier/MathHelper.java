@@ -28,4 +28,17 @@ public final class MathHelper {
 	public static float between(final float a, final float b, final float r) {
 		return a*(1-r) + b * r;
 	}
+	
+	public static float [] copyFloatArray(final float [] array) {
+		if(array == null) {
+			return new float[0];
+		} else {
+			final float [] ret = new float[array.length];
+			for(int i=0; i<array.length; i++) {
+				ret[i] = array[i];
+			}
+			return ret;
+		}
+	}
+	
 }

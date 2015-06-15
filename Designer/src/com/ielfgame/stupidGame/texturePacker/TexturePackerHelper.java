@@ -1,6 +1,7 @@
 package com.ielfgame.stupidGame.texturePacker;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -17,35 +18,41 @@ public class TexturePackerHelper {
 	final static ShellRunner sShellRunner = new ShellRunner();
 	final static TPHandle sTPHandle = new TPHandle();
 	static {
-		final BufferedReader br = FileHelper.getReader(FileHelper.getUserDir()+FileHelper.DECOLLATOR+"tp-cmd");
-		if(br != null) { 
-			String tmp = null; 
-			try { 
-				tmp = br.readLine(); 
-				br.close(); 
-			} catch (Exception e) { 
-				e.printStackTrace(); 
-			} 
-			
-			if(tmp != null) { 
-				TP_CMD = tmp; 
+		sShellRunner.setConsoleHandle(sTPHandle);// ���ÿ���̨������
+		
+		BufferedReader br = null;
+		try {
+			br = FileHelper.getReader(FileHelper.getUserDir()+FileHelper.DECOLLATOR+"tp-cmd");
+			if(br != null) { 
+				String tmp = null; 
+				try { 
+					tmp = br.readLine(); 
+					br.close(); 
+				} catch (Exception e) { 
+					e.printStackTrace(); 
+				} 
+				
+				if(tmp != null) { 
+					TP_CMD = tmp; 
+				} else { 
+					TP_CMD = TP_CMD_DEFAULT; 
+				} 
 			} else { 
 				TP_CMD = TP_CMD_DEFAULT; 
 			} 
-		} else { 
-			TP_CMD = TP_CMD_DEFAULT; 
-		} 
-		
-		sShellRunner.setConsoleHandle(sTPHandle);// ���ÿ���̨������
-		
-		try {
-			br.close();
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 	} 
 	
-	public static void refreshCmd() {
+	private static void refreshCmd() {
 		final BufferedReader br = FileHelper.getReader(FileHelper.getUserDir()+FileHelper.DECOLLATOR+"tp-cmd");
 		if(br != null) { 
 			try { 
@@ -69,7 +76,7 @@ public class TexturePackerHelper {
 		}
 	}
 	
-	public static TPHandle getTPHandle() { 
+	private static TPHandle getTPHandle() { 
 		return sTPHandle;
 	} 
 	
@@ -123,7 +130,7 @@ public class TexturePackerHelper {
 		return null; 
 	} 
 	
-	public static class TPHandle implements ConsoleHandle { 
+	private static class TPHandle implements ConsoleHandle { 
 		
 		final ArrayList<String> mOutList = new ArrayList<String>();
 		final ArrayList<String> mErrList = new ArrayList<String>();
@@ -168,7 +175,7 @@ public class TexturePackerHelper {
 		return ret;
 	} 
 	
-	static String getNextName(final String name) {
+	private static String getNextName(final String name) {
 		if(name == null) { 
 			return "null";
 		} 
@@ -200,6 +207,50 @@ public class TexturePackerHelper {
 		return subName + (++num);
 	}
 	
+	
+	/***
+	 * C:\Program Files (x86)\ARM\Mali Developer Tools\Mali Texture Compression Tool v4.2.0\bin>etcpack "D:\svn_project_pet\develop\editor\Resources\image-android\batt
+le\skin\002\002.PNG" "D:\svn_project_pet\develop\editor\Resources\image-android\battle\skin\002" -c etc1 -aa -e nonperceptual
+	 */
+	
+	private final static String ETC_PACKER = "etcpack.exe";
+	private final static String ETC_PACKER_DIR = "C:\\Program Files (x86)\\ARM\\Mali Developer Tools\\Mali Texture Compression Tool v4.2.0\\bin\\";
+	
+	public static void runETCAlpha(final String path) {
+		/***
+		 * 
+		 * 	<key>realTextureFileName</key>
+            <string>002.PNG</string>
+            <key>textureFileName</key>
+            <string>002.PNG</string>
+		 */
+	}
+	
+	private static int doETCAlpha(final String pngFile) {
+		
+		sShellRunner.setRunpath(new File(ETC_PACKER_DIR));
+		final String dir = FileHelper.getDirPath(pngFile);
+		final String cmd = String.format("%s \"%s\" \"%s\" -c etc1 -aa -e nonperceptual", ETC_PACKER, pngFile, dir);
+//		System.err.println(cmd);
+		sShellRunner.setCmdline(cmd); 
+		final int runRet = sShellRunner.run(); 
+		
+		//replace remove
+		final ArrayList<String> keys = new ArrayList<String>();
+		final ArrayList<String> values = new ArrayList<String>();
+		
+		final String key = FileHelper.getSimpleNameWithSuffix(pngFile);
+		keys.add(key);
+		values.add(key.replace(".PNG", ".pkm"));
+		
+		final String plistPath = pngFile.replace(".PNG", ".plist");
+		FileHelper.replaceFileKey(plistPath, keys, values);
+		
+		FileHelper.removeFile(pngFile);
+		
+		return runRet;
+	}
+	
 	public static void main(final String [] args) {
 //		final String line = "中国好声音!";
 //		final int length = line.length();
@@ -207,5 +258,7 @@ public class TexturePackerHelper {
 //		for(int i=0; i<length; i++) {
 //			System.err.println(line.charAt(i));
 //		}
+		final String pngPath = "D:\\svn_project_pet\\develop\\editor\\Resources\\image-android\\battle\\skin\\001\\001.PNG";
+		doETCAlpha(pngPath);
 	}
 } 

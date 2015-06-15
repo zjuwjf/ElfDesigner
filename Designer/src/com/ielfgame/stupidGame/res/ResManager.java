@@ -13,13 +13,13 @@ import com.ielfgame.stupidGame.MainDesigner;
 import com.ielfgame.stupidGame.batch.TpPlistScaner;
 import com.ielfgame.stupidGame.config.ProjectSetting;
 import com.ielfgame.stupidGame.crypto.XXTEA;
-import com.ielfgame.stupidGame.dialog.PopDialog;
 import com.ielfgame.stupidGame.power.PowerMan;
 import com.ielfgame.stupidGame.utils.FileHelper;
+import com.ielfgame.stupidGame.zip.ZipUtils;
 
 public class ResManager {
 	
-	private static final String IMAGE = "image";
+//	private static final String IMAGE = "image";
 	private static final String BMFONT = "bmfont";
 	private static final String XML = "xml";
 	private static final String SWF = "swf";
@@ -27,8 +27,30 @@ public class ResManager {
 	private static final String CONFIG = "config";
 	private static final String TMP = "tmp";
 	private static final String ZIP = "zip";
-	private static final String RAW = "raw";
+//	private static final String RAW = "raw";
 	private static final String FONT = "font";
+	
+//	private static final String IMAGE_Andriod = "image-android";
+//	private static final String RAW_Andriod = "raw-android";
+	
+	private static final String getImageStr() {
+//		if( PowerMan.getSingleton(ProjectSetting.class).plantform ) {
+//			return IMAGE_Andriod;
+//		} else {
+//			return IMAGE;
+//		}
+		return PowerMan.getSingleton(ProjectSetting.class).plantform.image;
+	}
+	
+	private static final String getRawStr() {
+//		if( PowerMan.getSingleton(ProjectSetting.class).IsAndroid ) {
+//			return RAW_Andriod;
+//		} else {
+//			return RAW;
+//		}
+		return PowerMan.getSingleton(ProjectSetting.class).plantform.raw;
+	}
+	
 	/***
 	 * 1.commit ?
 	 */
@@ -63,7 +85,7 @@ public class ResManager {
 	}
 	
 	public String getDesignerImageAsset() {
-		return appendPath(PowerMan.getSingleton(ProjectSetting.class).Designer_Resource_REF_DIR, IMAGE);
+		return appendPath(PowerMan.getSingleton(ProjectSetting.class).Designer_Resource_REF_DIR, getImageStr());
 	}
 
 	public String getDesignerXMLAsset() {
@@ -91,7 +113,7 @@ public class ResManager {
 	}
 
 	public String getDesignerRawAsset() {
-		return appendPath(PowerMan.getSingleton(ProjectSetting.class).Designer_Resource_REF_DIR, RAW);
+		return appendPath(PowerMan.getSingleton(ProjectSetting.class).Designer_Resource_REF_DIR, getRawStr());
 	}
 
 	public String getDesignerConfigAsset() {
@@ -137,7 +159,7 @@ public class ResManager {
 	}
 
 	public String getXCodeRawAsset() {
-		return appendPath(PowerMan.getSingleton(ProjectSetting.class).XCode_Resource_REF_DIR, RAW);
+		return appendPath(PowerMan.getSingleton(ProjectSetting.class).XCode_Resource_REF_DIR, "raw");
 	}
 
 	public String getXCodeConfigAsset() {
@@ -578,7 +600,7 @@ public class ResManager {
 		publishImage();
 		
 		final String dest = getXCodeImageAsset();
-		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg"}, true);
+		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg", ".pvr.ccz"}, true);
 		for(final String pngPath : allPngs) {
 			final String tmp = pngPath + ".xxtmp";
 			XXTEA.encrypt(pngPath, tmp, key);
@@ -586,6 +608,25 @@ public class ResManager {
 			
 			final File f = new File(tmp);
 			f.renameTo(new File(pngPath));
+		}
+		
+		final LinkedList<String> allPngs2 = FileHelper.getFullPahIds(dest, new String[]{".pkm"}, true);
+		for(final String pngPath : allPngs2) {
+			try {
+				final String tmp1 = pngPath + ".xxtmp";
+				final String tmp2 = pngPath + ".xxtmp2";
+				
+				ZipUtils.zip(pngPath, tmp1);
+				XXTEA.encrypt(tmp1, tmp2, key);
+				
+				FileHelper.removeFile(pngPath);
+				FileHelper.removeFile(tmp1);
+				
+				final File f = new File(tmp2);
+				f.renameTo(new File(pngPath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -714,6 +755,7 @@ public class ResManager {
 
 	private final static void publishCPlusPlusT() {
 		TFileCreator.createCPlusPlusT(ResManager.getSingleton().getXCodeClassesAsset());
+		
 		TFileCreator.createLuaT(ResManager.getSingleton().getXCodeScriptAsset());
 	}
 
@@ -806,7 +848,7 @@ public class ResManager {
 		publishBMFont();
 		
 		final String dest = ResManager.getSingleton().getXCodeBMFontAsset();
-		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg"}, true);
+		final LinkedList<String> allPngs = FileHelper.getFullPahIds(dest, new String[]{".png", ".PNG", ".jpg", ".pvr.ccz"}, true);
 		for(final String pngPath : allPngs) {
 			final String tmp = pngPath + ".xxtmp";
 			XXTEA.encrypt(pngPath, tmp, key);

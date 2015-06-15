@@ -234,6 +234,7 @@ public abstract class PVRTexture {
 		AI_88(0x17, false, PixelFormat.AI_88),
 		//		PVRTC_2(0x18, GL10.GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG, true, TextureFormat.???),
 		//		PVRTC_4(0x19, GL10.GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG, true, TextureFormat.???),
+		PVRTC_4(0x19, false, PixelFormat.I_8),
 		//		BGRA_8888(0x1A, GL10.GL_RGBA, TextureFormat.???),
 		A_8(0x1B, false, PixelFormat.A_8);
 

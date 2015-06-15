@@ -382,6 +382,27 @@ public class ResWorkSpaceTab extends AbstractWorkSpaceTab {
 				return false;
 			}
 		};
+		
+		final AbstractMenuItem etcAlpha = new AbstractMenuItem("ETC-ALPHA") {
+			public void onClick(SelectionEvent e) {
+				final TreeItem[] items = mTree.getSelection();
+				if (items != null && items.length > 0) {
+					final TreeItem item = items[0];
+					ResPackerHelper.visitETCAlpha(getItemData(item, 0));
+					
+					MessageDialog md = new MessageDialog();
+					md.open("", "ETC-Alpha Convert Successed!");
+				}
+			}
+
+			public boolean isShow() {
+				final TreeItem[] items = mTree.getSelection();
+				if (items != null && items.length > 0) {
+					return true;
+				}
+				return false;
+			}
+		};
 
 		final AbstractMenuItem openMenu = new AbstractMenuItem(FileHelper.IS_WINDOWS ? "Show In Explorer" : "Show In Finder") {
 			public void onClick(SelectionEvent e) {
@@ -455,6 +476,8 @@ public class ResWorkSpaceTab extends AbstractWorkSpaceTab {
 		rootMenu.checkInMenuItem(null);
 		rootMenu.checkInMenuItem(cleanMenu);
 		rootMenu.checkInMenuItem(cleanDeepMenu);
+		rootMenu.checkInMenuItem(null);
+		rootMenu.checkInMenuItem(etcAlpha);
 		rootMenu.checkInMenuItem(null);
 		rootMenu.checkInMenuItem(findMenu);
 		

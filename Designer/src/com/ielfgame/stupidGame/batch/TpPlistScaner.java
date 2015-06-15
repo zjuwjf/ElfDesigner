@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import com.ielfgame.stupidGame.ResJudge;
@@ -14,19 +13,51 @@ import com.ielfgame.stupidGame.utils.FileHelper;
 public class TpPlistScaner {
 
 	private final String mDirPath;
+	private final String mImageDir;
 	private String mCleanDir;
-
-	public TpPlistScaner(final String path) {
+	
+	public TpPlistScaner(final String path, final String image) {
 		mDirPath = path;
+		mImageDir = image;
 	}
 
-	public void setCleanDir(String cleanDir) {
+	public TpPlistScaner(final String path) {
+		this(path, null);
+	}
+
+	public void setCleanDir(String cleanDir) { 
 		mCleanDir = cleanDir;
 	} 
 	
+	//final LinkedList<String> list = FileHelper.getFullPathsDeep(mDirPath, new String[]{".nvcd", ".last"});
+	private  final LinkedList<String> getFullPahIds4Plist() {
+		final LinkedList<String> list;
+		if(mImageDir==null) {
+			list = FileHelper.getFullPathsDeep(mDirPath, new String[]{".nvcd", ".last"});
+		} else {
+			list = FileHelper.getFullPathsDeep(mImageDir, new String[]{".nvcd", ".last"});
+		}
+		
+		return list;
+	}
+	
+//	final LinkedList<String> list = FileHelper.getFullPahIds(mDirPath, new String [] {".png"}, true);
+	private  final LinkedList<String> getFullPahIds4Png() {
+		final LinkedList<String> list;
+		if(mImageDir==null) {
+			list = FileHelper.getFullPahIds(mDirPath, new String [] {".png"}, true);
+		} else {
+			list = FileHelper.getFullPahIds(mImageDir, new String [] {".png"}, true);
+		}
+		
+		return list;
+	}
+	
 	public LinkedList<String> scanPng(final HashMap<String, String> pngToPath) {
+		
 		final LinkedList<String> warnings = new LinkedList<String>();
-		final LinkedList<String> list = FileHelper.getFullPahIds(mDirPath, new String [] {".png"}, true);
+//		final LinkedList<String> list = FileHelper.getFullPahIds(mDirPath, new String [] {".png"}, true);
+		final LinkedList<String> list = getFullPahIds4Png();
 		
 		if(pngToPath != null) {
 			pngToPath.clear();
@@ -60,14 +91,14 @@ public class TpPlistScaner {
 
 		final LinkedList<String> warnings = new LinkedList<String>();
 
-		final LinkedList<String> list = FileHelper.getFullPathsDeep(mDirPath, new String[]{".nvcd", ".last"});
+//		final LinkedList<String> list = FileHelper.getFullPathsDeep(mDirPath, new String[]{".nvcd", ".last"});
+		final LinkedList<String> list = getFullPahIds4Plist();
 
 		final int length = mDirPath.length();
 
 		// read
 		for (final String path : list) {
 			if (ResJudge.isPlist(path)) {
-
 				final LinkedList<String> resids = readResidsFromPlist(path, mCleanDir == null ? mDirPath : mCleanDir, remove);
 
 				final HashSet<String> set = new HashSet<String>();
@@ -182,13 +213,10 @@ public class TpPlistScaner {
 		return ret;
 	}
 	
-	public static List<String> print() {
-		final LinkedList<String> ret = new LinkedList<String>();
-		
-		
-		
-		return ret;
-	}
+//	public static List<String> print() {
+//		final LinkedList<String> ret = new LinkedList<String>();
+//		return ret;
+//	}
 
 	public static void main(final String[] args) {
 		// D:\transfer\publish

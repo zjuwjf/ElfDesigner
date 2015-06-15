@@ -20,6 +20,8 @@ public class ProjectSetting extends ElfDataXML {
 	public com.ielfgame.stupidGame.enumTypes.Orientation Orientation = com.ielfgame.stupidGame.enumTypes.Orientation.Vertical;
 	public ElfPointf ScreenScale = new ElfPointf(1, 1);
 	
+	public Platform plantform = Platform.IOS;
+	
 	/***
 	 * Art_Project_Directory_REF_DIR
 	 * config.xml -> last_xml
@@ -61,6 +63,19 @@ public class ProjectSetting extends ElfDataXML {
 			return isHor? height : width;
 		} 
 	} 
+	
+	public static enum Platform {
+		IOS("image","raw"), Android("image-android","raw-android");
+		
+		public final String image;
+		public final String raw;
+		Platform(String image, String raw) {
+			this.image = image;
+			this.raw = raw;
+		}
+		
+		
+	}
 	
 	public int getLogicWidth() { 
 		return Screen_Resolution.getWidth(Orientation.isHorizontal());

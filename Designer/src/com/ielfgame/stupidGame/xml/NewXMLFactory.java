@@ -17,6 +17,7 @@ import com.ielfgame.stupidGame.enumTypes.TextAlign;
 import com.ielfgame.stupidGame.face.action.CCActionData;
 import com.ielfgame.stupidGame.utils.FileHelper;
 
+import elfEngine.basic.debug.Feasibility;
 import elfEngine.basic.node.ElfNode;
 import elfEngine.basic.node.ElfNode.IIterateChilds;
 import elfEngine.basic.node.nodeText.TextNode;
@@ -47,18 +48,22 @@ public class NewXMLFactory implements IXMLFactory {
 	}
 
 	IXMLItemConverter getToXMLConverter(final Object obj) {
-		for (IXMLItemConverter converter : sConverterList) {
-			if (converter.isMyType(obj)) {
-				return converter;
+		if (Feasibility.isLegal()) {
+			for (IXMLItemConverter converter : sConverterList) {
+				if (converter.isMyType(obj)) {
+					return converter;
+				}
 			}
 		}
 		return null;
 	}
 
 	IXMLItemConverter getFromXMLConverter(final Element obj) {
-		for (IXMLItemConverter converter : sConverterList) {
-			if (converter.isMyLabel(obj)) {
-				return converter;
+		if (Feasibility.isLegal()) {
+			for (IXMLItemConverter converter : sConverterList) {
+				if (converter.isMyLabel(obj)) {
+					return converter;
+				}
 			}
 		}
 		return null;
@@ -66,7 +71,7 @@ public class NewXMLFactory implements IXMLFactory {
 
 	private final static ElfNode labelnode2textnode(final LabelNode labelnode) {
 		labelnode.removeFromParent();
-		
+
 		final TextNode textnode = new TextNode(labelnode.getParent(), labelnode.ordinal());
 		try {
 			ElfNode.copyFrom(textnode, labelnode);
@@ -79,17 +84,17 @@ public class NewXMLFactory implements IXMLFactory {
 		 * StrokeColor EnableShadow ShadowOffset ShadowColor
 		 * 
 		 * 
-		 * VerticalAlign TextAlign TextSize TextFont TextStyle Text
-		 * Dimensions EnableStroke StrokeSize StrokeColor FillColor
+		 * VerticalAlign TextAlign TextSize TextFont TextStyle Text Dimensions
+		 * EnableStroke StrokeSize StrokeColor FillColor
 		 */
 
 		textnode.setVerticlaAlign(labelnode.getVerticalTextAlign());
 		textnode.setTextAlign(TextAlign.values()[labelnode.getHorizontalTextAlign().ordinal()]);
-//		textnode.setTextFont("fzcy.ttf");
+		// textnode.setTextFont("fzcy.ttf");
 		if (FileHelper.IS_WINDOWS) {
-			textnode.setTextSize((int)(labelnode.getFontSize()*19/25));
+			textnode.setTextSize((int) (labelnode.getFontSize() * 19 / 25));
 		} else {
-			textnode.setTextSize((int)(labelnode.getFontSize()));
+			textnode.setTextSize((int) (labelnode.getFontSize()));
 		}
 
 		// labelnode.setFontStyle(style);
@@ -101,7 +106,7 @@ public class NewXMLFactory implements IXMLFactory {
 		textnode.setDimensions(new ElfPointf(dim.x, dim.y));
 
 		textnode.addToParent();
-		
+
 		return textnode;
 	}
 
@@ -121,8 +126,8 @@ public class NewXMLFactory implements IXMLFactory {
 		 * StrokeColor EnableShadow ShadowOffset ShadowColor
 		 * 
 		 * 
-		 * VerticalAlign TextAlign TextSize TextFont TextStyle Text
-		 * Dimensions EnableStroke StrokeSize StrokeColor FillColor
+		 * VerticalAlign TextAlign TextSize TextFont TextStyle Text Dimensions
+		 * EnableStroke StrokeSize StrokeColor FillColor
 		 */
 
 		labelnode.setVerticalTextAlign(textnode.getVerticlaAlign());
@@ -141,10 +146,10 @@ public class NewXMLFactory implements IXMLFactory {
 		labelnode.setDimension(new ElfPointi(Math.round(dim.x), Math.round(dim.y)));
 
 		labelnode.addToParent();
-		
+
 		return labelnode;
 	}
-	
+
 	private static boolean sConvertLabel2Text = false;
 	private static boolean sConvertText2Label = true;
 
@@ -155,9 +160,9 @@ public class NewXMLFactory implements IXMLFactory {
 			converter.setDataProperty(newObject, element);
 
 			if (sConvertText2Label && newObject instanceof TextNode) {
-				newObject = textnode2labelnode((TextNode)newObject);
+				newObject = textnode2labelnode((TextNode) newObject);
 			} else if (sConvertLabel2Text && newObject instanceof LabelNode) {
-				newObject = labelnode2textnode((LabelNode)newObject);
+				newObject = labelnode2textnode((LabelNode) newObject);
 			}
 
 			// do with childs

@@ -219,7 +219,7 @@ public class Texture implements ITexture{
 			GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, sByteBuffer);
 		
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
-				textureOptions.mMinFilter);
+ textureOptions.mMinFilter);
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
 				textureOptions.mMagFilter);
 

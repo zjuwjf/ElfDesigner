@@ -60,22 +60,28 @@ public class SetTexturePackerPanel {
 	}
 	
 	public enum ImageFormat{
-		RGBA4444(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGBA4444", "NPOT", 0),
-		RGBA8888(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGBA8888","NPOT", 0), 
-		RGB565(DitherFormat.Fs,"pvr2ccz","pvr.ccz","RGB565", "NPOT", 0), 
-		RGB5551(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGB5551","", 0), 
+		RGBA4444(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGBA4444", "NPOT", 0, 1, 1),
+		RGBA8888(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGBA8888","NPOT", 0, 1, 1), 
+		RGB565(DitherFormat.Fs,"pvr2ccz","pvr.ccz","RGB565", "NPOT", 0, 1, 0), 
+		RGB5551(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","RGB5551","", 0, 1, 0), 
 		
-		PVRTC4(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC4", "POT", 0), 
-		PVRTC4_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC4_NOALPHA", "POT", 0), 
-		PVRTC2(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC2", "POT", 0),
-		PVRTC2_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC2_NOALPHA", "POT", 0),
-		PNG8888(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 0),
-		ETC1(DitherFormat.Fs,"pkm","pkm","ETC1", "POT", 0),
+		PVRTC4(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC4", "POT", 0, 1, 0), 
+		PVRTC4_E0(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC4", "POT", 0, 0, 0), 
+		PVRTC4_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC4_NOALPHA", "POT", 0, 0, 0), 
+		PVRTC4_E1_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC4_NOALPHA", "POT", 0, 1, 0), 
+		PVRTC2(DitherFormat.FsAlpha,"pvr2ccz","pvr.ccz","PVRTC2", "POT", 0, 1, 0),
+		PVRTC2_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC2_NOALPHA", "POT", 0, 0, 0),
+		PVRTC2_E1_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC2_NOALPHA", "POT", 0, 1, 0),
+		PVRTC2_E1G1_NOALPHA(DitherFormat.Fs,"pvr2ccz","pvr.ccz","PVRTC2_NOALPHA", "POT", 0, 1, 1),
+		PNG8888(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 0, 1, 0),
+		ETC1(DitherFormat.Fs,"pkm","pkm","ETC1", "POT", 0, 0, 0),
+		ETC1_E1(DitherFormat.Fs,"pkm","pkm","ETC1", "POT", 0, 1, 0),
+		ETC1_E1G1(DitherFormat.Fs,"pkm","pkm","ETC1", "POT", 0, 1, 1),
 		
 //		PVRTC4_RAW(DitherFormat.FsAlpha,"pvr2","pvr","PVRTC4", "POT", 0), 
 		
-		GLEE75(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 75),
-		GLEE35(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 35),
+		GLEE75(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 75, 1, 0),
+		GLEE35(DitherFormat.FsAlpha,"png","PNG","RGBA8888", "NPOT", 35, 1, 0),
 //		RGB888(DitherFormat.Fs), 
 		;
 		
@@ -87,19 +93,32 @@ public class SetTexturePackerPanel {
 		
 		private final String mSizeFormat;
 		
+		private final int mExtrude;
+		private final int mGap;
+		
 //		final String imageformat = "pvr2ccz";
 //		final String subfix = "pvr.ccz";
 		
 //		final String imageformat = "png";
 //		final String subfix = "PNG";
 		
-		ImageFormat(DitherFormat ditherFormat, String imageformat, String subfix, String str, String sizeFormat, int compress) {
+		ImageFormat(DitherFormat ditherFormat, String imageformat, String subfix, String str, String sizeFormat, int compress, int extrude, int gap) {
 			mDitherFormat = ditherFormat;
 			mFormat = imageformat;
 			mSubfix = subfix;
 			mString = str;
 			mCompress = compress;
 			mSizeFormat = sizeFormat;
+			mExtrude = extrude;
+			mGap = gap;
+		}
+		
+		public int getGap() {
+			return this.mGap;
+		}
+		
+		public int getExtrude() {
+			return mExtrude;
 		}
 		
 		public DitherFormat getDitherFormat() {

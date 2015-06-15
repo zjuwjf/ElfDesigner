@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Tue Nov 11 17:55:01 CST 2014
+#Mon Jun 15 20:06:43 CST 2015
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=false
 onejar.checkbox=true
-jarname=D\:\\MainDesigner\\MainDesigner-win32-v0.jar
+jarname=D\:\\MainDesigner\\MainDesigner-mac64-v0.jar
 manifest.mergeall=false
 manifest.mainclass=com.ielfgame.stupidGame.MainDesigner
 manifest.file=<createnew>

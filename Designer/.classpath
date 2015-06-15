@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
 	<classpathentry kind="lib" path="lib/pinyin4j-2.5.0.jar"/>
@@ -22,7 +21,9 @@
 	<classpathentry kind="lib" path="lib/json-lib/require/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/json-lib/require/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/json-lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.net.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/FFSWF"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/eclipse.swt.win32"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/eclipse.swt.mac_64"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

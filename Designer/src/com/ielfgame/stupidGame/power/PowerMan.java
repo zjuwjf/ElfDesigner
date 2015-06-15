@@ -9,10 +9,10 @@ import com.ielfgame.stupidGame.MainDesigner;
 
 public class PowerMan {
 	
-	static int LOAD_COUNT = 0;
-	static {
-		System.err.println("load PowerMan " + LOAD_COUNT++);
-	} 
+//	static int LOAD_COUNT = 0;
+//	static {
+//		System.err.println("load PowerMan " + LOAD_COUNT++);
+//	} 
 	
 	private final static HashMap<Class<? extends ISingleton>, ISingleton> sMap = new HashMap<Class<? extends ISingleton>, ISingleton>();
 	public static void register(Class<? extends ISingleton> _class, ISingleton workSpace){

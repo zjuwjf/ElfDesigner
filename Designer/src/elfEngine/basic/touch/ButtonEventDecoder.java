@@ -41,7 +41,6 @@ public class ButtonEventDecoder extends BasicEventDecoder {
 			return (Math.abs(last.x - event.x) > sThreshold || Math.abs(last.y - event.y) > sThreshold);
 		} else { 
 			final boolean ret = (mDelegateNode.isInSelectSize(event));
-//			System.err.println("event "+event.x +"," +event.y +","+ret);
 			return !ret;
 			// return false;
 		}

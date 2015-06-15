@@ -3,6 +3,7 @@ package com.ielfgame.stupidGame.res;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -17,10 +18,12 @@ import com.ielfgame.stupidGame.data.StringHelper;
 import com.ielfgame.stupidGame.dialog.MessageDialog;
 import com.ielfgame.stupidGame.newNodeMenu.SetTexturePackerPanel.DitherFormat;
 import com.ielfgame.stupidGame.newNodeMenu.SetTexturePackerPanel.ImageFormat;
+import com.ielfgame.stupidGame.platform.PlatformHelper;
 import com.ielfgame.stupidGame.power.PowerMan;
 import com.ielfgame.stupidGame.res.TpConfigPanel.TpConfig;
 import com.ielfgame.stupidGame.shellRunner.ShellRunner;
 import com.ielfgame.stupidGame.utils.FileHelper;
+import com.ielfgame.stupidGame.utils.FileHelper.IteratorFile;
 
 import elfEngine.basic.utils.EnumHelper;
 
@@ -193,6 +196,75 @@ public class ResPackerHelper {
 			}
 		}
 	}
+	
+	private final static String ETC_PACKER = "etcpack.exe";
+	private final static String ETC_PACKER_DIR = "C:\\Program Files (x86)\\ARM\\Mali Developer Tools\\Mali Texture Compression Tool v4.2.0\\bin\\";
+	
+	private final static int doETCAlpha(final ShellRunner sr, final String dirPath) {
+		final String simpleDir = FileHelper.getSimpleName(dirPath);
+		if(!simpleDir.startsWith(".")) {
+			
+			for(int i=0; i<10; i++) {
+				final String simplePngName;
+				if(i==0) {
+					simplePngName = simpleDir + ".PNG";
+				} else {
+					simplePngName = simpleDir + i+".PNG";
+				}
+				
+				final File pngFile = new File(new File(dirPath), simplePngName);
+				
+				if(pngFile.exists() && pngFile.isFile()) {
+					final String pngFilePath = pngFile.getAbsolutePath();
+					
+					FileHelper.getFullPahIds(dirPath, new String[]{".PNG"}, false);
+					
+					final String cmd;
+					if(PlatformHelper.IS_WINDOWS) {
+						sr.setRunpath(new File(ETC_PACKER_DIR));
+						cmd = String.format("%s \"%s\" \"%s\" -c etc1 -aa -e nonperceptual", ETC_PACKER, pngFilePath, dirPath);
+					} else {
+						cmd = String.format("%s %s %s -c etc1 -aa -e nonperceptual", "etcpack", pngFilePath, dirPath);
+					}
+					
+					sr.setCmdline(cmd); 
+					sr.run(); 
+					
+					//replace remove
+					final ArrayList<String> keys = new ArrayList<String>();
+					final ArrayList<String> values = new ArrayList<String>();
+					
+					keys.add(simplePngName);
+					values.add(simplePngName.replace(".PNG", ".pkm"));
+					
+					final String plistPath = pngFilePath.replace(".PNG", ".plist");
+					FileHelper.replaceFileKey(plistPath, keys, values);
+					
+					FileHelper.removeFile(pngFilePath);
+					
+					makeLastVersion(dirPath);
+				}
+			}
+			
+			return 1;
+			
+		}
+		
+		return -1;
+	}
+	
+	public static void visitETCAlpha(final String dir) {
+		final ShellRunner sr = new ShellRunner();
+		
+		FileHelper.travelFiles(dir, new IteratorFile() {
+			public boolean iterator(final File file) {
+				if(file.isDirectory()) {
+					doETCAlpha(sr, file.getAbsolutePath());
+				}
+				return false;
+			}
+		});
+	}
 
 	public static boolean hasChanged(final String dirPath) {
 		if (FileHelper.isDir(dirPath)) {
@@ -241,8 +313,13 @@ public class ResPackerHelper {
 	}
 	
 	public static void main(String [] args) {
-		final String dir = "D:\\Glee works\\card_product\\new\\doc\\designer\\Resources\\announce\\";
-		System.err.println(hasChanged(dir));
+//		final String dir = "D:\\Glee works\\card_product\\new\\doc\\designer\\Resources\\announce\\";
+//		System.err.println(hasChanged(dir));
+		
+		final String dir = "D:\\svn_project_pet\\develop\\editor\\Resources\\image-android\\battle\\skin\\001";
+		final ShellRunner sr = new ShellRunner();
+		doETCAlpha(sr, dir);
+		
 	}
 
 	private static String getTexturePackerString(final String name, final ImageFormat format, final LinkedList<String> simplePath) {
@@ -262,16 +339,23 @@ public class ResPackerHelper {
 		final String imageformat = format.getFormat();
 		final String subfix = format.getSubfix();
 		
+		final int gap = format.getGap();
+		
 //		final String imageformat = "png";
 //		final String subfix = "PNG";
-		
 //		--size-constraints <value>  Restrict sizes
 //        POT - Power of 2 (2,4,8,16,32,...)
 //		AnySize - Minimum size
 //		NPOT - Any size but power of 2
-		
 		//--disable-rotation
-		return String.format("Texturepacker --algorithm MaxRects --maxrects-heuristics Best --trim-mode Trim --extrude 1 --padding 0 --format cocos2d --texture-format %s --opt %s --size-constraints %s  %s --data %s.plist  --sheet %s.%s%s", imageformat, format.toRGBString(), format.getSizeFromat(), format.getDitherFormat().toString(), name, name, subfix, sb.toString());
+		
+		final int extrude = format.getExtrude();
+		
+		if(format == ImageFormat.PNG8888) {
+			return String.format("Texturepacker --algorithm MaxRects --maxrects-heuristics Best --trim-mode Trim --max-width 2048 --max-height 1024 --extrude %d --padding %d --format cocos2d --texture-format %s --opt %s --size-constraints %s  %s --data %s.plist  --sheet %s.%s%s", extrude, gap, imageformat, format.toRGBString(), format.getSizeFromat(), format.getDitherFormat().toString(), name, name, subfix, sb.toString());
+		} else {
+			return String.format("Texturepacker --algorithm MaxRects --maxrects-heuristics Best --trim-mode Trim --extrude %d --padding %d --format cocos2d --texture-format %s --opt %s --size-constraints %s  %s --data %s.plist  --sheet %s.%s%s", extrude, gap, imageformat, format.toRGBString(), format.getSizeFromat(), format.getDitherFormat().toString(), name, name, subfix, sb.toString());
+		}
 	}
 
 	private static boolean packer(final ShellRunner sr, final String name, final ImageFormat format, final LinkedList<String> simplePath) {

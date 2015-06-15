@@ -485,7 +485,6 @@ public class LanguageWorkSpaceTab extends AbstractWorkSpaceTab {
 				final MessageDialog md = new MessageDialog();
 				md.open("warning", key+" must contains $!");
 			}
-			
 			return true;
 		}
 		

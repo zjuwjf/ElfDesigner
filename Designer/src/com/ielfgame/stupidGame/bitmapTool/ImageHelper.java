@@ -1,5 +1,6 @@
 package com.ielfgame.stupidGame.bitmapTool;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -10,11 +11,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
+
+import com.ielfgame.stupidGame.data.ElfPointi;
 
 import elfEngine.opengl.BufferHelper;
 
@@ -329,5 +334,19 @@ public class ImageHelper {
 
 	public static ImageData create(final int width, final int height) {
 		return new ImageData(width, height, 32, new PaletteData(0xFF0000, 0xFF00, 0xFF));
+	}
+	
+	public static ElfPointi readImageSize(final File f) {
+		try {
+			final ElfPointi ret = new ElfPointi();
+			BufferedImage sourceImg =ImageIO.read(new FileInputStream(f));   
+			ret.x = sourceImg.getWidth();
+			ret.y = sourceImg.getHeight();
+			
+			return ret;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

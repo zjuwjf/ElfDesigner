@@ -20,9 +20,10 @@ public class TFileCreator {
 
 	private static void createByModelCpp(final String ouputDir, final String model, final String filename) {
 		final String resAsset = ResManager.getSingleton().getDesignerRootAsset();
+		final String imgAsset = ResManager.getSingleton().getDesignerImageAsset();
 
-		final TpPlistScaner scaner = new TpPlistScaner(resAsset);
-
+		final TpPlistScaner scaner = new TpPlistScaner(resAsset, imgAsset);
+		
 		final HashMap<String, Set<String>> plistToIdMap = new HashMap<String, Set<String>>();
 		final HashMap<String, String> idToPlistMap = new HashMap<String, String>();
 		final HashMap<String, String> plistToPvr = new HashMap<String, String>();
@@ -85,8 +86,9 @@ public class TFileCreator {
 
 	private static void createByModelH(final String ouputDir, final String model, final String filename) {
 		final String resAsset = ResManager.getSingleton().getDesignerRootAsset();
-
-		final TpPlistScaner scaner = new TpPlistScaner(resAsset);
+		final String imgAsset = ResManager.getSingleton().getDesignerImageAsset();
+		
+		final TpPlistScaner scaner = new TpPlistScaner(resAsset, imgAsset);
 
 		final HashMap<String, Set<String>> plistToIdMap = new HashMap<String, Set<String>>();
 		final HashMap<String, String> idToPlistMap = new HashMap<String, String>();

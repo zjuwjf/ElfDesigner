@@ -12,6 +12,7 @@ public class LinearLayoutNode extends ElfNode{
 	public Orientation getOrientation() {
 		return mOrientation;
 	} 
+	
 	public void setOrientation(Orientation orientation) { 
 		if(orientation != null) { 
 			this.mOrientation = orientation;
@@ -83,8 +84,8 @@ public class LinearLayoutNode extends ElfNode{
 					float dy = node.getSize().y;
 					
 					if(mCalcSizeWithScale) {
-						dx *= node.getScale().x;
-						dy *= node.getScale().y;
+						dx *= Math.abs(node.getScale().x);
+						dy *= Math.abs(node.getScale().y);
 					} 
 					
 					width[0] += dx;
@@ -94,10 +95,9 @@ public class LinearLayoutNode extends ElfNode{
 					float dy = node.getSize().y;
 					
 					if(mCalcSizeWithScale) { 
-						dx *= node.getScale().x;
-						dy *= node.getScale().y;
+						dx *= Math.abs(node.getScale().x);
+						dy *= Math.abs(node.getScale().y);
 					}
-					
 					width[0] = Math.max(width[0], dx);
 					height[0] += dy;
 				}
@@ -115,7 +115,7 @@ public class LinearLayoutNode extends ElfNode{
 					float dx = node.getSize().x; 
 					
 					if(mCalcSizeWithScale) { 
-						dx *= node.getScale().x;
+						dx *= Math.abs(node.getScale().x);
 					} 
 					
 					final ElfPointf anchor = node.getAnchorPosition();
@@ -127,7 +127,7 @@ public class LinearLayoutNode extends ElfNode{
 					float dx = node.getSize().x;
 					
 					if(mCalcSizeWithScale) {
-						dx *= node.getScale().x;
+						dx *= Math.abs(node.getScale().x);
 					} 
 					
 					final ElfPointf anchor = node.getAnchorPosition();
@@ -139,7 +139,7 @@ public class LinearLayoutNode extends ElfNode{
 					float dy = node.getSize().y;
 					
 					if(mCalcSizeWithScale) { 
-						dy *= node.getScale().y;
+						dy *= Math.abs(node.getScale().y);
 					} 
 					
 					final ElfPointf anchor = node.getAnchorPosition();
@@ -150,7 +150,7 @@ public class LinearLayoutNode extends ElfNode{
 					float dy = node.getSize().y;
 					
 					if(mCalcSizeWithScale) { 
-						dy *= node.getScale().y;
+						dy *= Math.abs(node.getScale().y);
 					} 
 					
 					final ElfPointf anchor = node.getAnchorPosition();
